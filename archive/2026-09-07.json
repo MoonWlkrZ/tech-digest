@@ -1,0 +1,868 @@
+{
+  "edition": "2026-09-07",
+  "recommendations": [
+    {
+      "title": "An Alien Mind",
+      "url": "https://openai.com/index/an-alien-mind/",
+      "source": "OpenAI / TLDR AI",
+      "verdict": "强烈推荐",
+      "score": 5,
+      "reason": "把推理模型、自动化 AI 研究和 alignment 监控放在同一条发展路径上，对判断 agent 下一阶段的边界很重要。",
+      "key_points": [
+        "AI 研究自动化可能成为未来保持前沿的必要条件。",
+        "单纯监控 chain-of-thought 正在变得不够可靠。",
+        "能力增长速度可能超过人类理解和监督能力。"
+      ],
+      "full_analysis_md": "# 精读：《An Alien Mind》\n\n**作者：** Jakub Pachocki，OpenAI 首席科学家\n\n**原文：** [An Alien Mind](https://openai.com/index/an-alien-mind/)\n\n**阅读成本：** 约 18 分钟；OpenAI 官方公开文章，不需要登录。\n\n## 一句话判断\n\n这不是普通的模型发布稿，而是 OpenAI 对未来几年 AI 发展路线的公开立场声明：推理模型、AI agent 和自动化 AI 研究可能逐渐进入递归式自我改进阶段；但当前没有任何实验室已经把 alignment 和 monitoring 做到足以支持无限加速。真正重要的问题是，模型越强、环境越复杂，人类越难确认它是否仍按我们以为的方式行动。\n\n## 1. 文章主张了什么\n\n文章把下一阶段的主线描述为：训练更强的推理模型，让模型使用电脑、工具和其他模型，让模型执行完整研究项目，再让 AI 帮助改进 AI 研究本身。作者认为，AI 自动化研究可能成为保持前沿竞争力的必要条件，并可能把递归式自我改进带入未来的发展路径。\n\n文章还区分 goal alignment 和 value alignment。前者是模型是否努力完成指定目标，后者是模型在目标模糊、冲突、陌生或对抗的情况下，是否仍然能保持诚实、完整并符合人类价值。真正困难的是泛化：模型能否把训练中形成的原则带到没有见过的新环境。\n\nOpenAI 重点讨论 chain-of-thought monitoring，但也承认它正在变得不够可靠：模型越来越多地与人、其他模型和工具交互，越来越能操纵自己的推理过程，而且更强的能力不再完全依赖显式文字推理。\n\n## 2. 我的解读\n\n这篇文章并没有证明递归自我改进已经发生。它真正表达的是：OpenAI 正在把自动化 AI 研究视为未来能力增长的核心方向，同时公开承认安全监控可能跟不上能力增长。\n\nAI agent 的竞争重点会从“谁的模型回答得更好”，逐渐转向“谁的模型能更可靠地完成完整的研究、工程和决策闭环”：长时间运行、多工具协作、自我检查、实验设计、代码执行、结果验证，以及根据结果调整下一步。\n\n文章也提醒我们，不要把“看起来符合规范”误认为“真正理解规范”。模型可能学会表现得像一个对齐系统，但在新环境、弱监督或复杂目标下仍然采取不符合人类意图的行动。\n\n## 3. 对实际工程的意义\n\n这和我们的技术日报是同一个方向的低风险版本：不是简单收集链接，而是让 agent 读取信息、筛选、判断、解释和推送。\n\n对 agent 系统最直接的启示是，不能只看最终文字回复。还要观察它访问了哪些数据、调用了哪些工具、是否异常重试、是否扩大任务边界、是否在不确定时继续执行、是否把网页内容当作指令，以及外部副作用是否被读回验证。\n\n因此实际系统应该优先保证最小权限、dry-run、人工确认、审计、读回验证和可撤销性。Gmail 只读、网页内容只作为资料、结构化 validator、真实 URL 校验、GitHub 发布验证和跨天去重，都属于这套思路。\n\n## 4. 可信度与局限\n\n文章主要依赖 OpenAI 的内部判断，使用了“based on internal results”“I have a strong expectation”“we believe”等表达。这些不是公开可复现实验结果。\n\n它同时也是战略叙事：文章把 OpenAI 描绘成正在认真研究安全、愿意在必要时放慢扩展、希望推动行业安全标准的实验室。这些观点可能是真诚的，但也服务于公共形象、政策讨论和行业话语权。\n\n“递归自我改进”在这里更像一个预测框架，而不是已经被完全证实的工程事实。文章没有充分说明 AI 如何具体改进自身、哪些部分已经自动化、能力增长速度如何测量，以及安全监控如何量化。因此应把它理解为顶级实验室负责人对未来方向和风险的公开判断，而不是 AGI 已经到来的证据。\n\n## 5. 最值得记住的三点\n\n1. **AI agent 的瓶颈会从能力转向可验证性。** 模型会做越来越多事情，但系统必须知道它为什么这么做、是否完成了真正目标、有没有扩大任务边界。\n2. **泛化比演示效果更重要。** agent 在熟悉 demo 中表现很好，不代表它能处理陌生网页、模糊目标、工具失败、恶意内容和不完整信息。\n3. **自动化研究比单纯模型发布更值得关注。** AI 是否能提出实验、运行实验、解释失败、提出训练改进并验证结论，比单个 benchmark 分数更接近 agent 时代的真实能力。\n\n## 我的推荐\n\n**推荐等级：★★★★★。** 值得完整阅读。它把推理模型的能力增长、AI 参与自身研发、alignment 泛化和监控失效放在一条逻辑链上。最值得带走的工程原则是：当 agent 的能力增长速度超过人类理解它的速度时，系统设计必须优先保证边界、可观测性和可撤销性。",
+      "reading_cost": "约 18 分钟 · 官方长文"
+    },
+    {
+      "source": "ByteByteGo",
+      "title": "How to Deal With Errors and Failures in LLM-Powered Applications",
+      "url": "https://blog.bytebytego.com/p/how-to-deal-with-errors-and-failures",
+      "verdict": "推荐",
+      "score": 4,
+      "reason": "把传统可靠性工程和 LLM 特有的语义失败连接起来，能直接转化为 agent 的校验、重试和状态管理设计。",
+      "key_points": [
+        "HTTP 200 不代表 LLM 应用成功，必须验证语义结果。",
+        "技术失败、永久失败和语义失败需要不同处理策略。",
+        "工具调用必须考虑幂等性、部分完成和外部状态读回。"
+      ],
+      "reading_cost": "约 8–12 分钟 · 公开文章",
+      "full_analysis_md": "## 精读：《How to Deal With Errors and Failures in LLM-Powered Applications》\n**作者/来源：**ByteByteGo\n**阅读成本：**约 8–12 分钟；公开文章。\n\n## 一句话判断\n这是一篇偏实用的 LLM 应用可靠性入门文章，真正有价值的地方不是重试、超时、限流这些传统工程概念，而是它强调：LLM 请求返回 HTTP 200，不代表应用成功；LLM 应用必须同时处理技术失败和语义失败。对于 agent 系统，最危险的往往不是请求失败，而是请求成功、模型返回了看似合理但错误或不安全的结果。\n\n## 1. 文章主张了什么\n文章把 LLM 应用的失败分成技术失败和语义失败。技术失败包括网络中断、超时、429 限流、401/403 权限问题、5xx 服务错误和 context length 超限，通常可以通过有限重试、fallback、缩短上下文或请求人工修正来处理。语义失败则包括 JSON 结构看似合法但含义错误、模型忽略要求、幻觉、工具参数在业务上不安全，以及结果违反业务规则。文章强调，传统异常捕获无法发现后一类问题。\n\n文章还覆盖了暂时性错误、永久性错误和语义错误的分类，并讨论了 retry、timeout、fallback、circuit breaker、rate limiting、queue、tool-call idempotency 以及部分完成后的恢复。\n\n## 2. 我的解读\n这篇文章表面上是在讲 LLM 应用容错，实际上是在讲一个更重要的系统设计原则：模型输出不是最终结果，而是未经验证的中间状态。普通 API 里 HTTP 200 往往接近“调用成功”，但 LLM 应用不能把 HTTP 200 当作业务成功。更合理的流程是：模型返回、格式验证、事实或来源验证、业务规则验证、权限检查，然后才决定是否执行下一步。\n\n对 agent 来说，这还意味着工具调用必须有状态机。模型提出动作不等于动作已经授权，工具返回成功不等于外部目标已经达成，超时也不等于第一次调用没有生效。\n\n## 3. 对实际工程的意义\n这和我们的技术日报流程直接相关。RSS 或 Gmail 采集失败时，应重试或跳过单个来源；正文抓取失败时，应换下一篇，不能把标题扩写成精读；模型输出缺字段时，应由 validator 拦截；GitHub 发布后，应检查 commit、Actions、Pages 和 digest.json，而不能只相信 agent 说“已经发布”。\n\n对更一般的 agent 工程，应该把流程拆成 COLLECTED、CANDIDATES_SCORED、ARTICLES_READ、DIGEST_VALIDATED、SITE_PUBLISHED、STATE_RECORDED 等状态。每一步都应有外部证据和可恢复边界。\n\n## 4. 可信度与局限\n文章的分类和工程建议清楚，适合作为 LLM 应用可靠性 checklist；但它不是深入研究论文，也没有给出检测幻觉、语义错误或错误预算的具体评估指标。retry、timeout、circuit breaker、rate limiting 和 idempotency 本身是传统分布式系统概念，文章的主要新增价值是把它们放进 LLM 的概率输出和语义失败背景下。\n\nByteByteGo 的内容适合作为工程入门和复查清单，不应当被当作某个具体系统的完整架构方案。\n\n## 5. 最值得记住的三点\n第一，HTTP 200 不代表 LLM 应用成功，必须验证格式、事实、业务规则、权限边界、工具结果和外部状态。\n第二，技术失败可以重试，语义失败通常需要验证、修复、换模型或人工判断，不能对所有错误都“再试一次”。\n第三，只要 agent 能调用外部工具，就必须考虑部分成功、超时后实际完成、重复执行、状态读回和恢复机制。\n\n## 我的推荐\n推荐等级：★★★★☆。它没有提出特别新颖的理论，但把 LLM 应用中最容易被忽略的事实讲得很清楚：一个看起来正常的模型调用，很可能只是技术层成功，业务层仍然失败。值得作为 agent 工程可靠性 checklist 保存下来，尤其适合在设计工具调用、自动重试和结果校验时重新查阅。"
+    }
+  ],
+  "items": [
+    {
+      "source": "ByteByteGo",
+      "title": "How to Deal With Errors and Failures in LLM-Powered Applications",
+      "url": "https://blog.bytebytego.com/p/how-to-deal-with-errors-and-failures",
+      "summary": "The all-in-one intelligent cloud (Sponsored) Writing code is fast, shipping it is still hard. Railway’s push-button compute, storage, and networking is built for both small and hyperscale software. Humans and agents alike operate on one vertically integrated system on our own hardware. Get superior speed, better economics, and a lot more calm. Sign up with the link below for free cloud credits and let your agents cook. Deploy now What is an LLM-powered application? It’s just like any software application. But there is one major difference. Apart from normal processing, the application also sends data to a large language model (LLM). It then uses the model’s response to carry out a task. For example, a customer support chatbot might depend on an LLM to answer user queries. A document-processing system can use an LLM to extract names, dates, and invoice amounts from the uploaded documents. A coding assistant might ask an LLM to write a piece of code and integrate it into the logical flow. On face value, we might feel that building such an application is quite simple: The user sends a request. The application sends a prompt to an LLM. The LLM returns an answer. The application displays that answer or uses the same for some other processing. However, there are chances that any of these steps can fail. The network might be unavailable. The LLM provider might reject the user request for various reasons. The request might go through, but the model might return invalid JSON. The LLM can misunderstand the instructions and invent false information due to hallucinations. They might also take a long time to respond. The techniques for resiliency and error handling help prepare the application to handle these situations in the best possible manner. Here’s what we will cover in the article: What is the meaning of error handling and resiliency? Why do LLM applications need special treatment for error handling? How does a request flow in an LLM-powered application? Main types of er",
+      "published": "2026-09-07T15:31:35+00:00",
+      "rough_score": 5,
+      "rough_confidence": "low",
+      "score_reason": "基于标题和现有摘要的初筛，尚未阅读全文。"
+    },
+    {
+      "source": "TLDR",
+      "title": "OpenAI research automation, Tim Cook's role, agent secrets",
+      "url": "https://tldr.tech/tech/2026-09-07",
+      "summary": "",
+      "published": "2026-09-07T00:00:00+00:00",
+      "rough_score": 4,
+      "rough_confidence": "low",
+      "score_reason": "基于标题和现有摘要的初筛，尚未阅读全文。"
+    },
+    {
+      "source": "TLDR AI",
+      "title": "OpenAI Researcher Warned About Rapidly Advancing AI (17 minute read)",
+      "url": "https://openai.com/index/an-alien-mind/",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 14:30:05 +0000",
+      "rough_score": 4,
+      "rough_confidence": "low",
+      "score_reason": "基于标题和现有摘要的初筛，尚未阅读全文。"
+    },
+    {
+      "source": "TLDR AI",
+      "title": "Formalizing Fermat's Last Theorem (11 minute read)",
+      "url": "https://www.anthropic.com/research/formalizing-fermats-last-theorem",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 14:30:05 +0000",
+      "rough_score": 2,
+      "rough_confidence": "low",
+      "score_reason": "基于标题和现有摘要的初筛，尚未阅读全文。"
+    },
+    {
+      "source": "TLDR AI",
+      "title": "Grok Imagine Video 1.5 agent (1 minute read)",
+      "url": "https://threadreaderapp.com/thread/2096298105213952178.html",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 14:30:05 +0000",
+      "rough_score": 4,
+      "rough_confidence": "low",
+      "score_reason": "基于标题和现有摘要的初筛，尚未阅读全文。"
+    },
+    {
+      "source": "TLDR AI",
+      "title": "GPT‑6 Astra on robotic manipulation (15 minute read)",
+      "url": "https://openai.robocurve.org/gpt-6-astra/",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 14:30:05 +0000",
+      "rough_score": 2,
+      "rough_confidence": "low",
+      "score_reason": "基于标题和现有摘要的初筛，尚未阅读全文。"
+    },
+    {
+      "source": "TLDR AI",
+      "title": "AI Safety Is Not the Same as Security (6 minute read)",
+      "url": "https://martinalderson.com/posts/ai-safety-vs-security/",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 14:30:05 +0000",
+      "rough_score": 5,
+      "rough_confidence": "low",
+      "score_reason": "基于标题和现有摘要的初筛，尚未阅读全文。"
+    },
+    {
+      "source": "TLDR AI",
+      "title": "Research acceleration: The view inside OpenAI (9 minute read)",
+      "url": "https://openai.com/index/research-acceleration-view-inside-openai/",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 14:30:05 +0000",
+      "rough_score": 4,
+      "rough_confidence": "low",
+      "score_reason": "基于标题和现有摘要的初筛，尚未阅读全文。"
+    },
+    {
+      "source": "TLDR AI",
+      "title": "LLM-as-a-Verifier (GitHub Repo)",
+      "url": "https://github.com/llm-as-a-verifier/llm-as-a-verifier",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 14:30:05 +0000",
+      "rough_score": 4,
+      "rough_confidence": "low",
+      "score_reason": "基于标题和现有摘要的初筛，尚未阅读全文。"
+    },
+    {
+      "source": "TLDR AI",
+      "title": "Random Attention (GitHub Repo)",
+      "url": "https://github.com/SalesforceAIResearch/Random-Attention",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 14:30:05 +0000",
+      "rough_score": 2,
+      "rough_confidence": "low",
+      "score_reason": "基于标题和现有摘要的初筛，尚未阅读全文。"
+    },
+    {
+      "source": "TLDR AI",
+      "title": "Anthropic IPO launch shifts toward mid-October (3 minute read)",
+      "url": "https://www.cnbc.com/2026/09/05/anthropic-ipo-launch-shifts-toward-mid-october-reuters.html",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 14:30:05 +0000",
+      "rough_score": 2,
+      "rough_confidence": "low",
+      "score_reason": "基于标题和现有摘要的初筛，尚未阅读全文。"
+    },
+    {
+      "source": "TLDR AI",
+      "title": "OpenAI's AGI number came from a harness, not the model (6 minute read)",
+      "url": "https://thenextweb.com/news/openai-astra-arc-agi-3-harness-62-7-vs-99-9-benchmark-revisions",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 14:30:05 +0000",
+      "rough_score": 4,
+      "rough_confidence": "low",
+      "score_reason": "基于标题和现有摘要的初筛，尚未阅读全文。"
+    },
+    {
+      "source": "TLDR AI",
+      "title": "An Interview with OpenAI President Greg Brockman About Astra and Alignment (63 minute read)",
+      "url": "https://stratechery.com/2026/an-interview-with-openai-president-greg-brockman-about-astra-and-alignment/",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 14:30:05 +0000",
+      "rough_score": 4,
+      "rough_confidence": "low",
+      "score_reason": "基于标题和现有摘要的初筛，尚未阅读全文。"
+    },
+    {
+      "source": "TLDR AI",
+      "title": "Concrete, Silicon, & Leverage (4 minute read)",
+      "url": "https://tomtunguz.com/the-4-trillion-dollar-ai-data-center-debt-wave/",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 14:30:05 +0000",
+      "rough_score": 4,
+      "rough_confidence": "low",
+      "score_reason": "基于标题和现有摘要的初筛，尚未阅读全文。"
+    },
+    {
+      "source": "TLDR AI",
+      "title": "Z1T (15 minute read)",
+      "url": "https://extropic.ai/writing/z1t/",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 14:30:05 +0000",
+      "rough_score": 2,
+      "rough_confidence": "low",
+      "score_reason": "基于标题和现有摘要的初筛，尚未阅读全文。"
+    },
+    {
+      "source": "TLDR AI",
+      "title": "OpenAI and the Wiki Incident (25 minute read)",
+      "url": "https://thezvi.substack.com/p/openai-and-the-wiki-incident",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 14:30:05 +0000",
+      "rough_score": 4,
+      "rough_confidence": "low",
+      "score_reason": "基于标题和现有摘要的初筛，尚未阅读全文。"
+    },
+    {
+      "source": "TLDR AI",
+      "title": "Fei Fei Li: The Race to Build World Models For AI (45 minute podcast)",
+      "url": "https://a16z.simplecast.com/episodes/fei-fei-li-the-race-to-build-world-models-for-ai-tvIN7XfT",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 14:30:05 +0000",
+      "rough_score": 4,
+      "rough_confidence": "low",
+      "score_reason": "基于标题和现有摘要的初筛，尚未阅读全文。"
+    },
+    {
+      "source": "TLDR AI",
+      "title": "Every binding AI review Washington has proposed has come back voluntary. Zuckerberg reportedly rang Trump about the latest one (7 minute read)",
+      "url": "https://thenextweb.com/news/every-binding-ai-review-washington-has-proposed-has-come-back-voluntary-zuckerberg-reportedly-rang-trump-about-the-latest-one",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 14:30:05 +0000",
+      "rough_score": 4,
+      "rough_confidence": "low",
+      "score_reason": "基于标题和现有摘要的初筛，尚未阅读全文。"
+    },
+    {
+      "source": "TLDR AI",
+      "title": "AIRA₃ (3 minute read)",
+      "url": "https://threadreaderapp.com/thread/2096271545589190927.html",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 14:30:05 +0000",
+      "rough_score": 4,
+      "rough_confidence": "low",
+      "score_reason": "基于标题和现有摘要的初筛，尚未阅读全文。"
+    },
+    {
+      "source": "TLDR AI",
+      "title": "Google keeps transforming Gemini desktop into superapp (3 minute read)",
+      "url": "https://www.testingcatalog.com/google-keeps-transforming-gemini-desktop-into-superapp/",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 14:30:05 +0000",
+      "rough_score": 2,
+      "rough_confidence": "low",
+      "score_reason": "基于标题和现有摘要的初筛，尚未阅读全文。"
+    },
+    {
+      "source": "TLDR AI",
+      "title": "Inc.'s Best Bootstrapped businesses",
+      "url": "https://www.linkedin.com/feed/update/urn:li:activity:7401699691039830016//1/010001a07c46bb66-a74a374c-fe2b-4819-a70f-8cb51bc50267-000000/4rtrKND_TOuWydUa1wrY9TdGwjuLC9ufRv-sKA5s0w0=452",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 14:30:05 +0000",
+      "rough_score": 2,
+      "rough_confidence": "low",
+      "score_reason": "基于标题和现有摘要的初筛，尚未阅读全文。"
+    },
+    {
+      "source": "TLDR AI",
+      "title": "Jacob Turner",
+      "url": "https://www.linkedin.com/in/jacob-turner-7521a8198//1/010001a07c46bb66-a74a374c-fe2b-4819-a70f-8cb51bc50267-000000/lnPp1hGlI7AQyX6AUcCNwgUVkjGwQVG0c6AEUyzjIg8=452",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 14:30:05 +0000",
+      "rough_score": 2,
+      "rough_confidence": "low",
+      "score_reason": "基于标题和现有摘要的初筛，尚未阅读全文。"
+    },
+    {
+      "source": "TLDR InfoSec",
+      "title": "Attackers Breached JetBrains Cadence via Unpatched TeamCity, Extracting AWS Credentials (3 minute read)",
+      "url": "https://thehackernews.com/2026/09/attackers-breached-jetbrains-cadence.html",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 13:52:35 +0000",
+      "rough_score": 4,
+      "rough_confidence": "low",
+      "score_reason": "基于标题和现有摘要的初筛，尚未阅读全文。"
+    },
+    {
+      "source": "TLDR InfoSec",
+      "title": "Attackers Exploit PaperCut Flaws to Steal Credentials From Schools and Universities (2 minute read)",
+      "url": "https://thehackernews.com/2026/09/attackers-exploit-papercut-flaws-to.html",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 13:52:35 +0000",
+      "rough_score": 2,
+      "rough_confidence": "low",
+      "score_reason": "基于标题和现有摘要的初筛，尚未阅读全文。"
+    },
+    {
+      "source": "TLDR InfoSec",
+      "title": "Thomson Reuters detects cybersecurity incident, says unauthorized party accessed files (2 minute read)",
+      "url": "https://www.reuters.com/legal/litigation/thomson-reuters-detects-cybersecurity-incident-says-unauthorized-party-accessed-2026-09-03/",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 13:52:35 +0000",
+      "rough_score": 4,
+      "rough_confidence": "low",
+      "score_reason": "基于标题和现有摘要的初筛，尚未阅读全文。"
+    },
+    {
+      "source": "TLDR InfoSec",
+      "title": "ASCII smuggling crosses over from AI prompt injection to phishing evasion (11 minute read)",
+      "url": "https://www.microsoft.com/en-us/security/blog/2026/09/03/ascii-smuggling-crosses-over-from-ai-prompt-injection-to-phishing-evasion/",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 13:52:35 +0000",
+      "rough_score": 5,
+      "rough_confidence": "low",
+      "score_reason": "基于标题和现有摘要的初筛，尚未阅读全文。"
+    },
+    {
+      "source": "TLDR InfoSec",
+      "title": "Improving our alignment and security efforts (12 minute read)",
+      "url": "https://www.anthropic.com/news/improving-alignment-security-efforts",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 13:52:35 +0000",
+      "rough_score": 4,
+      "rough_confidence": "low",
+      "score_reason": "基于标题和现有摘要的初筛，尚未阅读全文。"
+    },
+    {
+      "source": "TLDR InfoSec",
+      "title": "Turning Chrome Remote Desktop into Pure Red Team Ops (12 minute read)",
+      "url": "https://zerotracelab.com/blog/chrome-remote-desktop-red-ops",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 13:52:35 +0000",
+      "rough_score": 2,
+      "rough_confidence": "low",
+      "score_reason": "基于标题和现有摘要的初筛，尚未阅读全文。"
+    },
+    {
+      "source": "TLDR InfoSec",
+      "title": "Hetty (GitHub Repo)",
+      "url": "https://github.com/dstotijn/hetty",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 13:52:35 +0000",
+      "rough_score": 2,
+      "rough_confidence": "low",
+      "score_reason": "基于标题和现有摘要的初筛，尚未阅读全文。"
+    },
+    {
+      "source": "TLDR InfoSec",
+      "title": "Pigeon (GitHub Repo)",
+      "url": "https://github.com/pigeonlabsHQ/pigeon",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 13:52:35 +0000",
+      "rough_score": 2,
+      "rough_confidence": "low",
+      "score_reason": "基于标题和现有摘要的初筛，尚未阅读全文。"
+    },
+    {
+      "source": "TLDR InfoSec",
+      "title": "IRFlow Timeline (GitHub Repo)",
+      "url": "https://github.com/r3nzsec/irflow-timeline/releases/tag/v1.0.10",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 13:52:35 +0000",
+      "rough_score": 2,
+      "rough_confidence": "low",
+      "score_reason": "基于标题和现有摘要的初筛，尚未阅读全文。"
+    },
+    {
+      "source": "TLDR InfoSec",
+      "title": "Ababil of Minab: An Iran-Linked Destruction and Exfiltration Campaign Targeting the US and the Middle East (9 minute read)",
+      "url": "https://gambit.security/ababil-of-minab",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 13:52:35 +0000",
+      "rough_score": 4,
+      "rough_confidence": "low",
+      "score_reason": "基于标题和现有摘要的初筛，尚未阅读全文。"
+    },
+    {
+      "source": "TLDR InfoSec",
+      "title": "Another swarm of OpenAI agents reached the open internet without the frontier lab's knowledge (3 minute read)",
+      "url": "https://techcrunch.com/2026/09/04/another-swarm-of-openai-agents-reached-the-open-internet-without-the-frontier-labs-knowledge/",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 13:52:35 +0000",
+      "rough_score": 4,
+      "rough_confidence": "low",
+      "score_reason": "基于标题和现有摘要的初筛，尚未阅读全文。"
+    },
+    {
+      "source": "TLDR InfoSec",
+      "title": "GPT-6 Astra Scores 100% on ExploitBench as OpenAI Blocks PoC Exploit Requests (3 minute read)",
+      "url": "https://thehackernews.com/2026/09/gpt-6-astra-scores-100-on-exploitbench.html",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 13:52:35 +0000",
+      "rough_score": 4,
+      "rough_confidence": "low",
+      "score_reason": "基于标题和现有摘要的初筛，尚未阅读全文。"
+    },
+    {
+      "source": "TLDR InfoSec",
+      "title": "G7 urges organizations to prepare for quantum cyber threats (2 minute read)",
+      "url": "https://therecord.media/g7-urges-organizations-to-prepare-for-quantum-threats",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 13:52:35 +0000",
+      "rough_score": 2,
+      "rough_confidence": "low",
+      "score_reason": "基于标题和现有摘要的初筛，尚未阅读全文。"
+    },
+    {
+      "source": "TLDR InfoSec",
+      "title": "Evaluating Muse Spark 1.3 on Hack The Box Challenges (2 minute read)",
+      "url": "https://theaq.blog/2026/09/06/evaluating-meta-muse-spark-1.3-on-hack-the-box-challenges.html",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 13:52:35 +0000",
+      "rough_score": 2,
+      "rough_confidence": "low",
+      "score_reason": "基于标题和现有摘要的初筛，尚未阅读全文。"
+    },
+    {
+      "source": "TLDR InfoSec",
+      "title": "Booz Allen Cyber Weapon Index measures demonstrated AI cyber capabilities (3 minute read)",
+      "url": "https://www.boozallen.com/insights/cyber/cyber-weapon-index.html",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 13:52:35 +0000",
+      "rough_score": 4,
+      "rough_confidence": "low",
+      "score_reason": "基于标题和现有摘要的初筛，尚未阅读全文。"
+    },
+    {
+      "source": "TLDR InfoSec",
+      "title": "Inc.'s Best Bootstrapped businesses",
+      "url": "https://www.linkedin.com/feed/update/urn:li:activity:7401699691039830016//1/010001a07c24678a-89068aaa-490f-4fcb-86df-e95c951aa099-000000/utoAQVoBRyHY8b_CBWgcouRfnYGRrQmJby-NDKs0YJQ=452",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 13:52:35 +0000",
+      "rough_score": 2,
+      "rough_confidence": "low",
+      "score_reason": "基于标题和现有摘要的初筛，尚未阅读全文。"
+    },
+    {
+      "source": "TLDR InfoSec",
+      "title": "Prasanna Gautam",
+      "url": "https://www.linkedin.com/in/prasannagautam//1/010001a07c24678a-89068aaa-490f-4fcb-86df-e95c951aa099-000000/3tQD3wosE_tyiIxSYTLkQ9UGdLkoPyKvEbBFmXcgvm8=452",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 13:52:35 +0000",
+      "rough_score": 2,
+      "rough_confidence": "low",
+      "score_reason": "基于标题和现有摘要的初筛，尚未阅读全文。"
+    },
+    {
+      "source": "TLDR InfoSec",
+      "title": "Eric Fernandez",
+      "url": "https://www.linkedin.com/in/ericfernandezdelcampo//1/010001a07c24678a-89068aaa-490f-4fcb-86df-e95c951aa099-000000/FhoyS5O5yIVQD7_Y5-MbCM2-5pjGFhUZjfBemrpmECI=452",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 13:52:35 +0000",
+      "rough_score": 2,
+      "rough_confidence": "low",
+      "score_reason": "基于标题和现有摘要的初筛，尚未阅读全文。"
+    },
+    {
+      "source": "TLDR InfoSec",
+      "title": "Sammy Tbeile",
+      "url": "https://www.linkedin.com/in/sammy-tbeile//1/010001a07c24678a-89068aaa-490f-4fcb-86df-e95c951aa099-000000/6C-jIlUAou8FzAxgy03O6LaOhFDNMtchciaW3rLQwng=452",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 13:52:35 +0000",
+      "rough_score": 2,
+      "rough_confidence": "low",
+      "score_reason": "基于标题和现有摘要的初筛，尚未阅读全文。"
+    },
+    {
+      "source": "TLDR IT",
+      "title": "OpenAI launches GPT-6 Astra (5 minute read)",
+      "url": "https://venturebeat.com/technology/welcome-to-the-agi-era-openai-launches-gpt-6-astra",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 12:53:53 +0000",
+      "rough_score": 4,
+      "rough_confidence": "low",
+      "score_reason": "基于标题和现有摘要的初筛，尚未阅读全文。"
+    },
+    {
+      "source": "TLDR IT",
+      "title": "Snowflake's Latest Results Highlight Enterprise Demand for AI Model Alternatives Beyond Anthropic (2 minute read)",
+      "url": "https://www.itiger.com/news/1151383175",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 12:53:53 +0000",
+      "rough_score": 4,
+      "rough_confidence": "low",
+      "score_reason": "基于标题和现有摘要的初筛，尚未阅读全文。"
+    },
+    {
+      "source": "TLDR IT",
+      "title": "Three identity vendors shipped the same agent access pattern in eight days (7 minute read)",
+      "url": "https://workos.com/blog/cross-app-access-converged-in-eight-days",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 12:53:53 +0000",
+      "rough_score": 4,
+      "rough_confidence": "low",
+      "score_reason": "基于标题和现有摘要的初筛，尚未阅读全文。"
+    },
+    {
+      "source": "TLDR IT",
+      "title": "Enterprises are looking beyond Nvidia for AI chips (5 minute read)",
+      "url": "https://venturebeat.com/data/enterprises-put-non-nvidia-chips-14-points-ahead-of-nvidias-next-gen-gpus-on-their-evaluation-lists",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 12:53:53 +0000",
+      "rough_score": 4,
+      "rough_confidence": "low",
+      "score_reason": "基于标题和现有摘要的初筛，尚未阅读全文。"
+    },
+    {
+      "source": "TLDR IT",
+      "title": "Microsoft is ending Windows 11's web app slop era, and AI now writes native apps in 30 minutes (8 minute read)",
+      "url": "https://www.windowslatest.com/2026/09/06/microsoft-is-ending-windows-11s-web-app-slop-era-and-ai-now-writes-native-apps-in-30-minutes/",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 12:53:53 +0000",
+      "rough_score": 4,
+      "rough_confidence": "low",
+      "score_reason": "基于标题和现有摘要的初筛，尚未阅读全文。"
+    },
+    {
+      "source": "TLDR IT",
+      "title": "Cloudflare and OpenAI automate vulnerability remediation (4 minute read)",
+      "url": "https://blog.cloudflare.com/vulnerability-discovery-remediation/",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 12:53:53 +0000",
+      "rough_score": 5,
+      "rough_confidence": "low",
+      "score_reason": "基于标题和现有摘要的初筛，尚未阅读全文。"
+    },
+    {
+      "source": "TLDR IT",
+      "title": "Proofpoint launches an AI SOC Analyst Agent (3 minute read)",
+      "url": "https://www.proofpoint.com/us/blog/corporate-news/proofpoint-introduces-soc-analyst-agent-powered-openai-daybreak-models-through",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 12:53:53 +0000",
+      "rough_score": 4,
+      "rough_confidence": "low",
+      "score_reason": "基于标题和现有摘要的初筛，尚未阅读全文。"
+    },
+    {
+      "source": "TLDR IT",
+      "title": "Native IP functions for threat detection and hunting on Databricks (7 minute read)",
+      "url": "https://alexott.blogspot.com/2026/09/native-ip-functions-for-threat.html",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 12:53:53 +0000",
+      "rough_score": 2,
+      "rough_confidence": "low",
+      "score_reason": "基于标题和现有摘要的初筛，尚未阅读全文。"
+    },
+    {
+      "source": "TLDR IT",
+      "title": "Equinix wants the network to become AI's control plane (6 minute read)",
+      "url": "https://siliconangle.com/2026/09/04/equinix-turns-the-network-into-the-control-plane-for-enterprise-ai-inference/",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 12:53:53 +0000",
+      "rough_score": 4,
+      "rough_confidence": "low",
+      "score_reason": "基于标题和现有摘要的初筛，尚未阅读全文。"
+    },
+    {
+      "source": "TLDR IT",
+      "title": "Tencent Opens WorkBuddy Platform to Third Parties in Enterprise AI Push (1 minute read)",
+      "url": "https://technode.com/2026/09/03/tencent-opens-workbuddy-to-third-party-developers-with-100-partners/",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 12:53:53 +0000",
+      "rough_score": 4,
+      "rough_confidence": "low",
+      "score_reason": "基于标题和现有摘要的初筛，尚未阅读全文。"
+    },
+    {
+      "source": "TLDR IT",
+      "title": "Perplexity brings hybrid AI compute to Macs (3 minute read)",
+      "url": "https://www.perplexity.ai/en-GB/hub/blog/introducing-hybrid-compute-on-mac",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 12:53:53 +0000",
+      "rough_score": 4,
+      "rough_confidence": "low",
+      "score_reason": "基于标题和现有摘要的初筛，尚未阅读全文。"
+    },
+    {
+      "source": "TLDR IT",
+      "title": "Inc.'s Best Bootstrapped businesses",
+      "url": "https://www.linkedin.com/feed/update/urn:li:activity:7401699691039830016//1/010001a07beea845-410a2749-2968-4b3d-8c9a-5aeef30d0318-000000/dzTF20eEHk0wF5jK3W7Kxibwaer84MRCe2NDF3emDrI=452",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 12:53:53 +0000",
+      "rough_score": 2,
+      "rough_confidence": "low",
+      "score_reason": "基于标题和现有摘要的初筛，尚未阅读全文。"
+    },
+    {
+      "source": "TLDR IT",
+      "title": "Siddhi Bansal",
+      "url": "https://www.linkedin.com/in/siddhibansal//1/010001a07beea845-410a2749-2968-4b3d-8c9a-5aeef30d0318-000000/hjx7lBuUDwQ4w_92nLl_zq1k2akZE7FZ96RePLV9T9A=452",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 12:53:53 +0000",
+      "rough_score": 2,
+      "rough_confidence": "low",
+      "score_reason": "基于标题和现有摘要的初筛，尚未阅读全文。"
+    },
+    {
+      "source": "TLDR IT",
+      "title": "Tongchen Yang",
+      "url": "https://www.linkedin.com/in/tongchen-yang-877116216//1/010001a07beea845-410a2749-2968-4b3d-8c9a-5aeef30d0318-000000/KvX0F2IJRY_CISBmzJR-R4MgVshEaPSe3yrOKp8YULs=452",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 12:53:53 +0000",
+      "rough_score": 2,
+      "rough_confidence": "low",
+      "score_reason": "基于标题和现有摘要的初筛，尚未阅读全文。"
+    },
+    {
+      "source": "TLDR IT",
+      "title": "Rush Deshpande",
+      "url": "https://www.linkedin.com/in/rushdesh//1/010001a07beea845-410a2749-2968-4b3d-8c9a-5aeef30d0318-000000/uwrs0wxFrkuQ5qLf_4KoVskj6WidX1l95SfhEhxC3LA=452",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 12:53:53 +0000",
+      "rough_score": 2,
+      "rough_confidence": "low",
+      "score_reason": "基于标题和现有摘要的初筛，尚未阅读全文。"
+    },
+    {
+      "source": "TLDR Dev",
+      "title": "Reducing Zod's Memory Footprint by an Order of Magnitude with Method Memoization (4 minute read)",
+      "url": "https://zod.dev/blog/reducing-memory-footprint",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 11:52:54 +0000",
+      "rough_score": 2,
+      "rough_confidence": "low",
+      "score_reason": "基于标题和现有摘要的初筛，尚未阅读全文。"
+    },
+    {
+      "source": "TLDR Dev",
+      "title": "How We Raised Mobile End-to-End Test Stability to 98% (6 minute read)",
+      "url": "https://shopify.engineering/mobile-e2e-testing",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 11:52:54 +0000",
+      "rough_score": 4,
+      "rough_confidence": "low",
+      "score_reason": "基于标题和现有摘要的初筛，尚未阅读全文。"
+    },
+    {
+      "source": "TLDR Dev",
+      "title": "Portal by Spotify Cut My Claude Code Token Usage by 90% (8 minute read)",
+      "url": "https://engineering.atspotify.com/2026/9/portal-by-spotify-cut-my-claude-code-token-usage-by-90",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 11:52:54 +0000",
+      "rough_score": 2,
+      "rough_confidence": "low",
+      "score_reason": "基于标题和现有摘要的初筛，尚未阅读全文。"
+    },
+    {
+      "source": "TLDR Dev",
+      "title": "The Point of a System Is Fewer Decisions (6 minute read)",
+      "url": "https://www.antonsten.com/articles/the-building-was-never-the-hard-part/",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 11:52:54 +0000",
+      "rough_score": 2,
+      "rough_confidence": "low",
+      "score_reason": "基于标题和现有摘要的初筛，尚未阅读全文。"
+    },
+    {
+      "source": "TLDR Dev",
+      "title": "Towards Self-Driving Codebases (10 minute read)",
+      "url": "https://blog.detail.dev/posts/towards-self-driving-codebases",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 11:52:54 +0000",
+      "rough_score": 2,
+      "rough_confidence": "low",
+      "score_reason": "基于标题和现有摘要的初筛，尚未阅读全文。"
+    },
+    {
+      "source": "TLDR Dev",
+      "title": "AI Handles Incidents, Engineers Lose Touch with Their Systems (4 minute read)",
+      "url": "https://www.sylvainkalache.com/blog/ai-handles-incidents-engineers-lose-touch-with-their-systems",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 11:52:54 +0000",
+      "rough_score": 4,
+      "rough_confidence": "low",
+      "score_reason": "基于标题和现有摘要的初筛，尚未阅读全文。"
+    },
+    {
+      "source": "TLDR Dev",
+      "title": "cn (GitHub Repo)",
+      "url": "https://github.com/shadcn-ui/cn",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 11:52:54 +0000",
+      "rough_score": 2,
+      "rough_confidence": "low",
+      "score_reason": "基于标题和现有摘要的初筛，尚未阅读全文。"
+    },
+    {
+      "source": "TLDR Dev",
+      "title": "Vidact (Website)",
+      "url": "https://www.vidact.dev/",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 11:52:54 +0000",
+      "rough_score": 2,
+      "rough_confidence": "low",
+      "score_reason": "基于标题和现有摘要的初筛，尚未阅读全文。"
+    },
+    {
+      "source": "TLDR Dev",
+      "title": "It Took a Year to Ship WebAssembly in Anubis (26 minute read)",
+      "url": "https://anubis.techaro.lol/blog/2026/anubis-wasm/",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 11:52:54 +0000",
+      "rough_score": 2,
+      "rough_confidence": "low",
+      "score_reason": "基于标题和现有摘要的初筛，尚未阅读全文。"
+    },
+    {
+      "source": "TLDR Dev",
+      "title": "Making a Python Interpreter in 1024 Bytes (5 minute read)",
+      "url": "https://austinhenley.com/blog/python1024.html",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 11:52:54 +0000",
+      "rough_score": 2,
+      "rough_confidence": "low",
+      "score_reason": "基于标题和现有摘要的初筛，尚未阅读全文。"
+    },
+    {
+      "source": "TLDR Dev",
+      "title": "GPT-6 Astra in Code Review: Gains, Privacy, and Cost (8 minute read)",
+      "url": "https://www.coderabbit.ai/blog/gpt-6-astra-code-review-evaluation",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 11:52:54 +0000",
+      "rough_score": 4,
+      "rough_confidence": "low",
+      "score_reason": "基于标题和现有摘要的初筛，尚未阅读全文。"
+    },
+    {
+      "source": "TLDR Dev",
+      "title": "Inc.'s Best Bootstrapped businesses",
+      "url": "https://www.linkedin.com/feed/update/urn:li:activity:7401699691039830016//1/010001a07bb6d4cb-e50f0c9f-d00c-4572-a3f1-38e50f91f7c7-000000/IdBpy5ejaCwxi-tLgV4dpRBKazh9QNYh8E8mEK2kK2g=452",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 11:52:54 +0000",
+      "rough_score": 2,
+      "rough_confidence": "low",
+      "score_reason": "基于标题和现有摘要的初筛，尚未阅读全文。"
+    },
+    {
+      "source": "TLDR",
+      "title": "Tim Cook's CEO-Like Pay Package Shows He Isn't Going Anywhere (13 minute read)",
+      "url": "https://www.bloomberg.com/news/newsletters/2026-09-06/apple-s-new-ceo-like-cook-pay-package-shows-he-s-going-nowhere-sept-9-event-mtpvpcj1?accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzb3VyY2UiOiJTdWJzY3JpYmVyR2lmdGVkQXJ0aWNsZSIsImlhdCI6MTc4ODcwNTgwOCwiZXhwIjoxNzg5MzEwNjA4LCJhcnRpY2xlSWQiOiJUS1k0ODFLR0NURlEwMCIsImJjb25uZWN0SWQiOiJDNEVEQ0FFMUZBMDU0MEJFQTI0QTlGMjExQzFFOTA4MCJ9.VPVLP03ZWjEbH48efjq8Q7n0_vk4t7OynYeaUbOfYzU",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 11:30:19 +0000",
+      "rough_score": 2,
+      "rough_confidence": "low",
+      "score_reason": "基于标题和现有摘要的初筛，尚未阅读全文。"
+    },
+    {
+      "source": "TLDR",
+      "title": "Travis Kalanick's Atoms might be getting into the robotaxi business (1 minute read)",
+      "url": "https://techcrunch.com/2026/09/06/travis-kalanicks-atoms-might-be-getting-into-the-robotaxi-business/",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 11:30:19 +0000",
+      "rough_score": 2,
+      "rough_confidence": "low",
+      "score_reason": "基于标题和现有摘要的初筛，尚未阅读全文。"
+    },
+    {
+      "source": "TLDR",
+      "title": "The Curiously Playable Universe (41 minute read)",
+      "url": "https://contraptions.venkateshrao.com/p/the-curiously-playable-universe",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 11:30:19 +0000",
+      "rough_score": 2,
+      "rough_confidence": "low",
+      "score_reason": "基于标题和现有摘要的初筛，尚未阅读全文。"
+    },
+    {
+      "source": "TLDR",
+      "title": "Save your seat",
+      "url": "https://www.baseten.co/resources/webinar/executive-briefing-on-glm-5_3/",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 11:30:19 +0000",
+      "rough_score": 2,
+      "rough_confidence": "low",
+      "score_reason": "基于标题和现有摘要的初筛，尚未阅读全文。"
+    },
+    {
+      "source": "TLDR",
+      "title": "I trust my coding agents with production secrets now (3 minute read)",
+      "url": "https://jacob.gold/posts/i-trust-my-coding-agents-with-production-secrets-now/",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 11:30:19 +0000",
+      "rough_score": 4,
+      "rough_confidence": "low",
+      "score_reason": "基于标题和现有摘要的初筛，尚未阅读全文。"
+    },
+    {
+      "source": "TLDR",
+      "title": "Terraform in Lean 4: If It Compiles, It Will Likely Deploy (26 minute read)",
+      "url": "https://ngrislain.github.io/blog/2026-9-6-terraform-in-lean-4-if-it-compiles-it-will-likely-deploy/",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 11:30:19 +0000",
+      "rough_score": 2,
+      "rough_confidence": "low",
+      "score_reason": "基于标题和现有摘要的初筛，尚未阅读全文。"
+    },
+    {
+      "source": "TLDR",
+      "title": "The loop closes (5 minute read)",
+      "url": "https://henryaj.substack.com/p/the-loop-closes",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 11:30:19 +0000",
+      "rough_score": 2,
+      "rough_confidence": "low",
+      "score_reason": "基于标题和现有摘要的初筛，尚未阅读全文。"
+    },
+    {
+      "source": "TLDR",
+      "title": "We taught a fruit fly to hear human emotion (9 minute read)",
+      "url": "https://oruk.ai/research/we-taught-a-fruit-fly-to-read-human-emotion",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 11:30:19 +0000",
+      "rough_score": 2,
+      "rough_confidence": "low",
+      "score_reason": "基于标题和现有摘要的初筛，尚未阅读全文。"
+    },
+    {
+      "source": "TLDR",
+      "title": "Can Tesla Cybercab Actually Kill Uber? Day-Two Pricing From Austin (7 minute read)",
+      "url": "https://farzad.fm/fznews/can-teslas-cybercab-actually-kill-uber",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 11:30:19 +0000",
+      "rough_score": 2,
+      "rough_confidence": "low",
+      "score_reason": "基于标题和现有摘要的初筛，尚未阅读全文。"
+    },
+    {
+      "source": "TLDR",
+      "title": "iPhone Ultra Production Hitting Just 'a Few Hundred' a Day, Says Nikkei (2 minute read)",
+      "url": "https://www.macrumors.com/2026/09/04/iphone-ultra-production-extremely-limited/",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 11:30:19 +0000",
+      "rough_score": 2,
+      "rough_confidence": "low",
+      "score_reason": "基于标题和现有摘要的初筛，尚未阅读全文。"
+    },
+    {
+      "source": "TLDR",
+      "title": "Between the Graph and the Silicon: Inside the Apple Neural Engine Compiler (10 minute read)",
+      "url": "https://smolnero.com/posts/between-the-graph-and-the-silicon-inside-the-apple-neural-engine-compiler",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 11:30:19 +0000",
+      "rough_score": 2,
+      "rough_confidence": "low",
+      "score_reason": "基于标题和现有摘要的初筛，尚未阅读全文。"
+    },
+    {
+      "source": "TLDR",
+      "title": "I Left the Mac After 12 Years. Omarchy Made Computers Fun Again (4 minute read)",
+      "url": "https://www.hadijaveed.me/2026/09/06/leaving-mac-after-12-years/",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 11:30:19 +0000",
+      "rough_score": 4,
+      "rough_confidence": "low",
+      "score_reason": "基于标题和现有摘要的初筛，尚未阅读全文。"
+    },
+    {
+      "source": "TLDR",
+      "title": "GPT-6 Astra and the Fourth Exponential (6 minute read)",
+      "url": "https://taekim.substack.com/p/gpt-6-astra-and-the-fourth-exponential",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 11:30:19 +0000",
+      "rough_score": 2,
+      "rough_confidence": "low",
+      "score_reason": "基于标题和现有摘要的初筛，尚未阅读全文。"
+    },
+    {
+      "source": "TLDR",
+      "title": "Inc.'s Best Bootstrapped businesses",
+      "url": "https://www.linkedin.com/feed/update/urn:li:activity:7401699691039830016//1/010001a07ba226e4-c6ed4607-954c-4303-b3b4-8416f736802f-000000/8mbfVzxH8v8xMxrQWS23ax3Fjo7CHtU0qYtMhuzI4CY=452",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 11:30:19 +0000",
+      "rough_score": 2,
+      "rough_confidence": "low",
+      "score_reason": "基于标题和现有摘要的初筛，尚未阅读全文。"
+    },
+    {
+      "source": "TLDR",
+      "title": "Stephen Flanders",
+      "url": "https://twitter.com/SteveFlanders22/1/010001a07ba226e4-c6ed4607-954c-4303-b3b4-8416f736802f-000000/Jk5LIeLzUazuvGHVx9lQYmDK3txrONitbzU-EZoiRnA=452",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 11:30:19 +0000",
+      "rough_score": 2,
+      "rough_confidence": "low",
+      "score_reason": "基于标题和现有摘要的初筛，尚未阅读全文。"
+    }
+  ],
+  "judgment": "今天最值得注意的两条线索是：AI agent 的核心瓶颈正在从“能不能完成任务”转向“能不能验证任务结果”，而自动化研究带来的能力增长可能进一步放大这个问题。"
+}
