@@ -1,0 +1,23 @@
+# Local credentials and OAuth material
+.env
+.env.*
+google_token.json
+google_client_secret.json
+
+# Local Hermes/runtime state
+digest_state.json
+curated_digest.json
+tech_digest_items.json
+*.log
+
+# Python/cache/editor files
+__pycache__/
+*.py[cod]
+.venv/
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Keep the public site payload intentionally tracked:
+# digest.json
