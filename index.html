@@ -103,7 +103,7 @@
     const recs = state.recommendations.filter(i => !q || `${i.title} ${i.reason} ${i.key_points} ${i.full_analysis || ''}`.toLowerCase().includes(q));
     const recHtml = recs.length ? `<section class="section"><div class="section-head"><h2>今日推荐顺序</h2><span class="section-count">${recs.length} selected</span></div><div class="recommendations">${recs.map((i,n) => `<article class="recommendation"><div class="rank">0${n+1}</div><div><div class="verdict">${esc(i.verdict || '推荐阅读')} · ${esc(i.source || '')} · ${stars(i.score)}</div><h3><a href="${esc(i.url)}" target="_blank" rel="noopener noreferrer">${esc(i.title)}</a></h3><p class="reason"><strong>为什么值得看：</strong>${esc(i.reason || '')}</p><details><summary>展开完整精读</summary><div class="full-read">${esc(i.full_analysis || '')}</div><ul class="key-points">${(i.key_points || []).map(p => `<li>${esc(p)}</li>`).join('')}</ul></details><div class="card-foot"><span>${esc(i.reading_cost || '')}</span><span>↗ 原文</span></div></div></article>`).join('')}</div></section>` : '';
     const cards = filtered.map(i => `<article>
-      <div class="source">${esc(i.source)} <span class="list-score">${stars(i.score)}</span></div>
+      <div class="source">${esc(i.source)} <span class="list-score">${stars(i.score ?? i.rough_score)}</span></div>
       <h3><a href="${esc(i.url)}" target="_blank" rel="noopener noreferrer">${esc(i.title)}</a></h3>
       <p class="summary">${esc(short(i.summary) || '打开原文阅读。')}</p>
       <div class="card-foot"><span>${esc(formatDate(i.published))}</span><span>↗ 原文</span></div>
