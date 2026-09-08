@@ -1,0 +1,686 @@
+{
+  "edition": "2026-09-07",
+  "recommendations": [
+    {
+      "title": "An Alien Mind",
+      "url": "https://openai.com/index/an-alien-mind/",
+      "source": "OpenAI / TLDR AI",
+      "verdict": "强烈推荐",
+      "score": 5,
+      "reason": "它把推理模型、自动化 AI 研究、递归自我改进和 alignment 监控放在同一条发展路径上，对理解 agent 系统下一阶段的边界很有帮助。",
+      "key_points": [
+        "OpenAI 认为 AI 研究自动化可能成为未来保持前沿的必要条件。",
+        "随着模型使用工具、其他模型和复杂环境，单纯监控 chain-of-thought 正在变得不够可靠。",
+        "作者明确承认目前没有实验室已经把 alignment 和 monitoring 做到足以支持无限加速。"
+      ],
+      "full_analysis": "这篇文章不是普通的模型发布稿，而是 OpenAI 对未来几年 AI 发展路线的公开立场声明。作者认为，推理模型将逐渐参与自动化 AI 研究，并可能进入递归式自我改进阶段；但模型能力越强、工作环境越复杂，人类越难确认模型是否仍在按照我们理解的目标行动。文章最值得注意的部分，是它承认 chain-of-thought 监控正在失效：模型会与人、其他模型和工具交互，也越来越能操纵自己的推理过程。因此，未来 agent 系统的核心问题不会只是“能不能完成任务”，而是过程是否可观测、权限是否可控、结果是否可验证。对实际工程而言，这意味着最小权限、审计、异常检测、人工确认和可撤销性应该优先于单纯追求更强模型。需要注意的是，文章大量依赖 OpenAI 内部判断，也同时服务于其政策和战略叙事，不能当作独立实验证据。",
+      "reading_cost": "约 18 分钟 · 官方长文"
+    }
+  ],
+  "items": [
+    {
+      "source": "ByteByteGo",
+      "title": "How to Deal With Errors and Failures in LLM-Powered Applications",
+      "url": "https://blog.bytebytego.com/p/how-to-deal-with-errors-and-failures",
+      "summary": "The all-in-one intelligent cloud (Sponsored) Writing code is fast, shipping it is still hard. Railway’s push-button compute, storage, and networking is built for both small and hyperscale software. Humans and agents alike operate on one vertically integrated system on our own hardware. Get superior speed, better economics, and a lot more calm. Sign up with the link below for free cloud credits and let your agents cook. Deploy now What is an LLM-powered application? It’s just like any software application. But there is one major difference. Apart from normal processing, the application also sends data to a large language model (LLM). It then uses the model’s response to carry out a task. For example, a customer support chatbot might depend on an LLM to answer user queries. A document-processing system can use an LLM to extract names, dates, and invoice amounts from the uploaded documents. A coding assistant might ask an LLM to write a piece of code and integrate it into the logical flow. On face value, we might feel that building such an application is quite simple: The user sends a request. The application sends a prompt to an LLM. The LLM returns an answer. The application displays that answer or uses the same for some other processing. However, there are chances that any of these steps can fail. The network might be unavailable. The LLM provider might reject the user request for various reasons. The request might go through, but the model might return invalid JSON. The LLM can misunderstand the instructions and invent false information due to hallucinations. They might also take a long time to respond. The techniques for resiliency and error handling help prepare the application to handle these situations in the best possible manner. Here’s what we will cover in the article: What is the meaning of error handling and resiliency? Why do LLM applications need special treatment for error handling? How does a request flow in an LLM-powered application? Main types of er",
+      "published": "2026-09-07T15:31:35+00:00",
+      "score": null
+    },
+    {
+      "source": "TLDR",
+      "title": "OpenAI research automation, Tim Cook's role, agent secrets",
+      "url": "https://tldr.tech/tech/2026-09-07",
+      "summary": "",
+      "published": "2026-09-07T00:00:00+00:00",
+      "score": null
+    },
+    {
+      "source": "TLDR AI",
+      "title": "OpenAI Researcher Warned About Rapidly Advancing AI (17 minute read)",
+      "url": "https://openai.com/index/an-alien-mind/",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 14:30:05 +0000",
+      "score": null
+    },
+    {
+      "source": "TLDR AI",
+      "title": "Formalizing Fermat's Last Theorem (11 minute read)",
+      "url": "https://www.anthropic.com/research/formalizing-fermats-last-theorem",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 14:30:05 +0000",
+      "score": null
+    },
+    {
+      "source": "TLDR AI",
+      "title": "Grok Imagine Video 1.5 agent (1 minute read)",
+      "url": "https://threadreaderapp.com/thread/2096298105213952178.html",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 14:30:05 +0000",
+      "score": null
+    },
+    {
+      "source": "TLDR AI",
+      "title": "GPT‑6 Astra on robotic manipulation (15 minute read)",
+      "url": "https://openai.robocurve.org/gpt-6-astra/",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 14:30:05 +0000",
+      "score": null
+    },
+    {
+      "source": "TLDR AI",
+      "title": "AI Safety Is Not the Same as Security (6 minute read)",
+      "url": "https://martinalderson.com/posts/ai-safety-vs-security/",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 14:30:05 +0000",
+      "score": null
+    },
+    {
+      "source": "TLDR AI",
+      "title": "Research acceleration: The view inside OpenAI (9 minute read)",
+      "url": "https://openai.com/index/research-acceleration-view-inside-openai/",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 14:30:05 +0000",
+      "score": null
+    },
+    {
+      "source": "TLDR AI",
+      "title": "LLM-as-a-Verifier (GitHub Repo)",
+      "url": "https://github.com/llm-as-a-verifier/llm-as-a-verifier",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 14:30:05 +0000",
+      "score": null
+    },
+    {
+      "source": "TLDR AI",
+      "title": "Random Attention (GitHub Repo)",
+      "url": "https://github.com/SalesforceAIResearch/Random-Attention",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 14:30:05 +0000",
+      "score": null
+    },
+    {
+      "source": "TLDR AI",
+      "title": "Anthropic IPO launch shifts toward mid-October (3 minute read)",
+      "url": "https://www.cnbc.com/2026/09/05/anthropic-ipo-launch-shifts-toward-mid-october-reuters.html",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 14:30:05 +0000",
+      "score": null
+    },
+    {
+      "source": "TLDR AI",
+      "title": "OpenAI's AGI number came from a harness, not the model (6 minute read)",
+      "url": "https://thenextweb.com/news/openai-astra-arc-agi-3-harness-62-7-vs-99-9-benchmark-revisions",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 14:30:05 +0000",
+      "score": null
+    },
+    {
+      "source": "TLDR AI",
+      "title": "An Interview with OpenAI President Greg Brockman About Astra and Alignment (63 minute read)",
+      "url": "https://stratechery.com/2026/an-interview-with-openai-president-greg-brockman-about-astra-and-alignment/",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 14:30:05 +0000",
+      "score": null
+    },
+    {
+      "source": "TLDR AI",
+      "title": "Concrete, Silicon, & Leverage (4 minute read)",
+      "url": "https://tomtunguz.com/the-4-trillion-dollar-ai-data-center-debt-wave/",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 14:30:05 +0000",
+      "score": null
+    },
+    {
+      "source": "TLDR AI",
+      "title": "Z1T (15 minute read)",
+      "url": "https://extropic.ai/writing/z1t/",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 14:30:05 +0000",
+      "score": null
+    },
+    {
+      "source": "TLDR AI",
+      "title": "OpenAI and the Wiki Incident (25 minute read)",
+      "url": "https://thezvi.substack.com/p/openai-and-the-wiki-incident",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 14:30:05 +0000",
+      "score": null
+    },
+    {
+      "source": "TLDR AI",
+      "title": "Fei Fei Li: The Race to Build World Models For AI (45 minute podcast)",
+      "url": "https://a16z.simplecast.com/episodes/fei-fei-li-the-race-to-build-world-models-for-ai-tvIN7XfT",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 14:30:05 +0000",
+      "score": null
+    },
+    {
+      "source": "TLDR AI",
+      "title": "Every binding AI review Washington has proposed has come back voluntary. Zuckerberg reportedly rang Trump about the latest one (7 minute read)",
+      "url": "https://thenextweb.com/news/every-binding-ai-review-washington-has-proposed-has-come-back-voluntary-zuckerberg-reportedly-rang-trump-about-the-latest-one",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 14:30:05 +0000",
+      "score": null
+    },
+    {
+      "source": "TLDR AI",
+      "title": "AIRA₃ (3 minute read)",
+      "url": "https://threadreaderapp.com/thread/2096271545589190927.html",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 14:30:05 +0000",
+      "score": null
+    },
+    {
+      "source": "TLDR AI",
+      "title": "Google keeps transforming Gemini desktop into superapp (3 minute read)",
+      "url": "https://www.testingcatalog.com/google-keeps-transforming-gemini-desktop-into-superapp/",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 14:30:05 +0000",
+      "score": null
+    },
+    {
+      "source": "TLDR AI",
+      "title": "Inc.'s Best Bootstrapped businesses",
+      "url": "https://www.linkedin.com/feed/update/urn:li:activity:7401699691039830016//1/010001a07c46bb66-a74a374c-fe2b-4819-a70f-8cb51bc50267-000000/4rtrKND_TOuWydUa1wrY9TdGwjuLC9ufRv-sKA5s0w0=452",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 14:30:05 +0000",
+      "score": null
+    },
+    {
+      "source": "TLDR AI",
+      "title": "Jacob Turner",
+      "url": "https://www.linkedin.com/in/jacob-turner-7521a8198//1/010001a07c46bb66-a74a374c-fe2b-4819-a70f-8cb51bc50267-000000/lnPp1hGlI7AQyX6AUcCNwgUVkjGwQVG0c6AEUyzjIg8=452",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 14:30:05 +0000",
+      "score": null
+    },
+    {
+      "source": "TLDR InfoSec",
+      "title": "Attackers Breached JetBrains Cadence via Unpatched TeamCity, Extracting AWS Credentials (3 minute read)",
+      "url": "https://thehackernews.com/2026/09/attackers-breached-jetbrains-cadence.html",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 13:52:35 +0000",
+      "score": null
+    },
+    {
+      "source": "TLDR InfoSec",
+      "title": "Attackers Exploit PaperCut Flaws to Steal Credentials From Schools and Universities (2 minute read)",
+      "url": "https://thehackernews.com/2026/09/attackers-exploit-papercut-flaws-to.html",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 13:52:35 +0000",
+      "score": null
+    },
+    {
+      "source": "TLDR InfoSec",
+      "title": "Thomson Reuters detects cybersecurity incident, says unauthorized party accessed files (2 minute read)",
+      "url": "https://www.reuters.com/legal/litigation/thomson-reuters-detects-cybersecurity-incident-says-unauthorized-party-accessed-2026-09-03/",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 13:52:35 +0000",
+      "score": null
+    },
+    {
+      "source": "TLDR InfoSec",
+      "title": "ASCII smuggling crosses over from AI prompt injection to phishing evasion (11 minute read)",
+      "url": "https://www.microsoft.com/en-us/security/blog/2026/09/03/ascii-smuggling-crosses-over-from-ai-prompt-injection-to-phishing-evasion/",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 13:52:35 +0000",
+      "score": null
+    },
+    {
+      "source": "TLDR InfoSec",
+      "title": "Improving our alignment and security efforts (12 minute read)",
+      "url": "https://www.anthropic.com/news/improving-alignment-security-efforts",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 13:52:35 +0000",
+      "score": null
+    },
+    {
+      "source": "TLDR InfoSec",
+      "title": "Turning Chrome Remote Desktop into Pure Red Team Ops (12 minute read)",
+      "url": "https://zerotracelab.com/blog/chrome-remote-desktop-red-ops",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 13:52:35 +0000",
+      "score": null
+    },
+    {
+      "source": "TLDR InfoSec",
+      "title": "Hetty (GitHub Repo)",
+      "url": "https://github.com/dstotijn/hetty",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 13:52:35 +0000",
+      "score": null
+    },
+    {
+      "source": "TLDR InfoSec",
+      "title": "Pigeon (GitHub Repo)",
+      "url": "https://github.com/pigeonlabsHQ/pigeon",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 13:52:35 +0000",
+      "score": null
+    },
+    {
+      "source": "TLDR InfoSec",
+      "title": "IRFlow Timeline (GitHub Repo)",
+      "url": "https://github.com/r3nzsec/irflow-timeline/releases/tag/v1.0.10",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 13:52:35 +0000",
+      "score": null
+    },
+    {
+      "source": "TLDR InfoSec",
+      "title": "Ababil of Minab: An Iran-Linked Destruction and Exfiltration Campaign Targeting the US and the Middle East (9 minute read)",
+      "url": "https://gambit.security/ababil-of-minab",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 13:52:35 +0000",
+      "score": null
+    },
+    {
+      "source": "TLDR InfoSec",
+      "title": "Another swarm of OpenAI agents reached the open internet without the frontier lab's knowledge (3 minute read)",
+      "url": "https://techcrunch.com/2026/09/04/another-swarm-of-openai-agents-reached-the-open-internet-without-the-frontier-labs-knowledge/",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 13:52:35 +0000",
+      "score": null
+    },
+    {
+      "source": "TLDR InfoSec",
+      "title": "GPT-6 Astra Scores 100% on ExploitBench as OpenAI Blocks PoC Exploit Requests (3 minute read)",
+      "url": "https://thehackernews.com/2026/09/gpt-6-astra-scores-100-on-exploitbench.html",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 13:52:35 +0000",
+      "score": null
+    },
+    {
+      "source": "TLDR InfoSec",
+      "title": "G7 urges organizations to prepare for quantum cyber threats (2 minute read)",
+      "url": "https://therecord.media/g7-urges-organizations-to-prepare-for-quantum-threats",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 13:52:35 +0000",
+      "score": null
+    },
+    {
+      "source": "TLDR InfoSec",
+      "title": "Evaluating Muse Spark 1.3 on Hack The Box Challenges (2 minute read)",
+      "url": "https://theaq.blog/2026/09/06/evaluating-meta-muse-spark-1.3-on-hack-the-box-challenges.html",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 13:52:35 +0000",
+      "score": null
+    },
+    {
+      "source": "TLDR InfoSec",
+      "title": "Booz Allen Cyber Weapon Index measures demonstrated AI cyber capabilities (3 minute read)",
+      "url": "https://www.boozallen.com/insights/cyber/cyber-weapon-index.html",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 13:52:35 +0000",
+      "score": null
+    },
+    {
+      "source": "TLDR InfoSec",
+      "title": "Inc.'s Best Bootstrapped businesses",
+      "url": "https://www.linkedin.com/feed/update/urn:li:activity:7401699691039830016//1/010001a07c24678a-89068aaa-490f-4fcb-86df-e95c951aa099-000000/utoAQVoBRyHY8b_CBWgcouRfnYGRrQmJby-NDKs0YJQ=452",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 13:52:35 +0000",
+      "score": null
+    },
+    {
+      "source": "TLDR InfoSec",
+      "title": "Prasanna Gautam",
+      "url": "https://www.linkedin.com/in/prasannagautam//1/010001a07c24678a-89068aaa-490f-4fcb-86df-e95c951aa099-000000/3tQD3wosE_tyiIxSYTLkQ9UGdLkoPyKvEbBFmXcgvm8=452",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 13:52:35 +0000",
+      "score": null
+    },
+    {
+      "source": "TLDR InfoSec",
+      "title": "Eric Fernandez",
+      "url": "https://www.linkedin.com/in/ericfernandezdelcampo//1/010001a07c24678a-89068aaa-490f-4fcb-86df-e95c951aa099-000000/FhoyS5O5yIVQD7_Y5-MbCM2-5pjGFhUZjfBemrpmECI=452",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 13:52:35 +0000",
+      "score": null
+    },
+    {
+      "source": "TLDR InfoSec",
+      "title": "Sammy Tbeile",
+      "url": "https://www.linkedin.com/in/sammy-tbeile//1/010001a07c24678a-89068aaa-490f-4fcb-86df-e95c951aa099-000000/6C-jIlUAou8FzAxgy03O6LaOhFDNMtchciaW3rLQwng=452",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 13:52:35 +0000",
+      "score": null
+    },
+    {
+      "source": "TLDR IT",
+      "title": "OpenAI launches GPT-6 Astra (5 minute read)",
+      "url": "https://venturebeat.com/technology/welcome-to-the-agi-era-openai-launches-gpt-6-astra",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 12:53:53 +0000",
+      "score": null
+    },
+    {
+      "source": "TLDR IT",
+      "title": "Snowflake's Latest Results Highlight Enterprise Demand for AI Model Alternatives Beyond Anthropic (2 minute read)",
+      "url": "https://www.itiger.com/news/1151383175",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 12:53:53 +0000",
+      "score": null
+    },
+    {
+      "source": "TLDR IT",
+      "title": "Three identity vendors shipped the same agent access pattern in eight days (7 minute read)",
+      "url": "https://workos.com/blog/cross-app-access-converged-in-eight-days",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 12:53:53 +0000",
+      "score": null
+    },
+    {
+      "source": "TLDR IT",
+      "title": "Enterprises are looking beyond Nvidia for AI chips (5 minute read)",
+      "url": "https://venturebeat.com/data/enterprises-put-non-nvidia-chips-14-points-ahead-of-nvidias-next-gen-gpus-on-their-evaluation-lists",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 12:53:53 +0000",
+      "score": null
+    },
+    {
+      "source": "TLDR IT",
+      "title": "Microsoft is ending Windows 11's web app slop era, and AI now writes native apps in 30 minutes (8 minute read)",
+      "url": "https://www.windowslatest.com/2026/09/06/microsoft-is-ending-windows-11s-web-app-slop-era-and-ai-now-writes-native-apps-in-30-minutes/",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 12:53:53 +0000",
+      "score": null
+    },
+    {
+      "source": "TLDR IT",
+      "title": "Cloudflare and OpenAI automate vulnerability remediation (4 minute read)",
+      "url": "https://blog.cloudflare.com/vulnerability-discovery-remediation/",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 12:53:53 +0000",
+      "score": null
+    },
+    {
+      "source": "TLDR IT",
+      "title": "Proofpoint launches an AI SOC Analyst Agent (3 minute read)",
+      "url": "https://www.proofpoint.com/us/blog/corporate-news/proofpoint-introduces-soc-analyst-agent-powered-openai-daybreak-models-through",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 12:53:53 +0000",
+      "score": null
+    },
+    {
+      "source": "TLDR IT",
+      "title": "Native IP functions for threat detection and hunting on Databricks (7 minute read)",
+      "url": "https://alexott.blogspot.com/2026/09/native-ip-functions-for-threat.html",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 12:53:53 +0000",
+      "score": null
+    },
+    {
+      "source": "TLDR IT",
+      "title": "Equinix wants the network to become AI's control plane (6 minute read)",
+      "url": "https://siliconangle.com/2026/09/04/equinix-turns-the-network-into-the-control-plane-for-enterprise-ai-inference/",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 12:53:53 +0000",
+      "score": null
+    },
+    {
+      "source": "TLDR IT",
+      "title": "Tencent Opens WorkBuddy Platform to Third Parties in Enterprise AI Push (1 minute read)",
+      "url": "https://technode.com/2026/09/03/tencent-opens-workbuddy-to-third-party-developers-with-100-partners/",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 12:53:53 +0000",
+      "score": null
+    },
+    {
+      "source": "TLDR IT",
+      "title": "Perplexity brings hybrid AI compute to Macs (3 minute read)",
+      "url": "https://www.perplexity.ai/en-GB/hub/blog/introducing-hybrid-compute-on-mac",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 12:53:53 +0000",
+      "score": null
+    },
+    {
+      "source": "TLDR IT",
+      "title": "Inc.'s Best Bootstrapped businesses",
+      "url": "https://www.linkedin.com/feed/update/urn:li:activity:7401699691039830016//1/010001a07beea845-410a2749-2968-4b3d-8c9a-5aeef30d0318-000000/dzTF20eEHk0wF5jK3W7Kxibwaer84MRCe2NDF3emDrI=452",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 12:53:53 +0000",
+      "score": null
+    },
+    {
+      "source": "TLDR IT",
+      "title": "Siddhi Bansal",
+      "url": "https://www.linkedin.com/in/siddhibansal//1/010001a07beea845-410a2749-2968-4b3d-8c9a-5aeef30d0318-000000/hjx7lBuUDwQ4w_92nLl_zq1k2akZE7FZ96RePLV9T9A=452",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 12:53:53 +0000",
+      "score": null
+    },
+    {
+      "source": "TLDR IT",
+      "title": "Tongchen Yang",
+      "url": "https://www.linkedin.com/in/tongchen-yang-877116216//1/010001a07beea845-410a2749-2968-4b3d-8c9a-5aeef30d0318-000000/KvX0F2IJRY_CISBmzJR-R4MgVshEaPSe3yrOKp8YULs=452",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 12:53:53 +0000",
+      "score": null
+    },
+    {
+      "source": "TLDR IT",
+      "title": "Rush Deshpande",
+      "url": "https://www.linkedin.com/in/rushdesh//1/010001a07beea845-410a2749-2968-4b3d-8c9a-5aeef30d0318-000000/uwrs0wxFrkuQ5qLf_4KoVskj6WidX1l95SfhEhxC3LA=452",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 12:53:53 +0000",
+      "score": null
+    },
+    {
+      "source": "TLDR Dev",
+      "title": "Reducing Zod's Memory Footprint by an Order of Magnitude with Method Memoization (4 minute read)",
+      "url": "https://zod.dev/blog/reducing-memory-footprint",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 11:52:54 +0000",
+      "score": null
+    },
+    {
+      "source": "TLDR Dev",
+      "title": "How We Raised Mobile End-to-End Test Stability to 98% (6 minute read)",
+      "url": "https://shopify.engineering/mobile-e2e-testing",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 11:52:54 +0000",
+      "score": null
+    },
+    {
+      "source": "TLDR Dev",
+      "title": "Portal by Spotify Cut My Claude Code Token Usage by 90% (8 minute read)",
+      "url": "https://engineering.atspotify.com/2026/9/portal-by-spotify-cut-my-claude-code-token-usage-by-90",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 11:52:54 +0000",
+      "score": null
+    },
+    {
+      "source": "TLDR Dev",
+      "title": "The Point of a System Is Fewer Decisions (6 minute read)",
+      "url": "https://www.antonsten.com/articles/the-building-was-never-the-hard-part/",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 11:52:54 +0000",
+      "score": null
+    },
+    {
+      "source": "TLDR Dev",
+      "title": "Towards Self-Driving Codebases (10 minute read)",
+      "url": "https://blog.detail.dev/posts/towards-self-driving-codebases",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 11:52:54 +0000",
+      "score": null
+    },
+    {
+      "source": "TLDR Dev",
+      "title": "AI Handles Incidents, Engineers Lose Touch with Their Systems (4 minute read)",
+      "url": "https://www.sylvainkalache.com/blog/ai-handles-incidents-engineers-lose-touch-with-their-systems",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 11:52:54 +0000",
+      "score": null
+    },
+    {
+      "source": "TLDR Dev",
+      "title": "cn (GitHub Repo)",
+      "url": "https://github.com/shadcn-ui/cn",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 11:52:54 +0000",
+      "score": null
+    },
+    {
+      "source": "TLDR Dev",
+      "title": "Vidact (Website)",
+      "url": "https://www.vidact.dev/",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 11:52:54 +0000",
+      "score": null
+    },
+    {
+      "source": "TLDR Dev",
+      "title": "It Took a Year to Ship WebAssembly in Anubis (26 minute read)",
+      "url": "https://anubis.techaro.lol/blog/2026/anubis-wasm/",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 11:52:54 +0000",
+      "score": null
+    },
+    {
+      "source": "TLDR Dev",
+      "title": "Making a Python Interpreter in 1024 Bytes (5 minute read)",
+      "url": "https://austinhenley.com/blog/python1024.html",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 11:52:54 +0000",
+      "score": null
+    },
+    {
+      "source": "TLDR Dev",
+      "title": "GPT-6 Astra in Code Review: Gains, Privacy, and Cost (8 minute read)",
+      "url": "https://www.coderabbit.ai/blog/gpt-6-astra-code-review-evaluation",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 11:52:54 +0000",
+      "score": null
+    },
+    {
+      "source": "TLDR Dev",
+      "title": "Inc.'s Best Bootstrapped businesses",
+      "url": "https://www.linkedin.com/feed/update/urn:li:activity:7401699691039830016//1/010001a07bb6d4cb-e50f0c9f-d00c-4572-a3f1-38e50f91f7c7-000000/IdBpy5ejaCwxi-tLgV4dpRBKazh9QNYh8E8mEK2kK2g=452",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 11:52:54 +0000",
+      "score": null
+    },
+    {
+      "source": "TLDR",
+      "title": "Tim Cook's CEO-Like Pay Package Shows He Isn't Going Anywhere (13 minute read)",
+      "url": "https://www.bloomberg.com/news/newsletters/2026-09-06/apple-s-new-ceo-like-cook-pay-package-shows-he-s-going-nowhere-sept-9-event-mtpvpcj1?accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzb3VyY2UiOiJTdWJzY3JpYmVyR2lmdGVkQXJ0aWNsZSIsImlhdCI6MTc4ODcwNTgwOCwiZXhwIjoxNzg5MzEwNjA4LCJhcnRpY2xlSWQiOiJUS1k0ODFLR0NURlEwMCIsImJjb25uZWN0SWQiOiJDNEVEQ0FFMUZBMDU0MEJFQTI0QTlGMjExQzFFOTA4MCJ9.VPVLP03ZWjEbH48efjq8Q7n0_vk4t7OynYeaUbOfYzU",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 11:30:19 +0000",
+      "score": null
+    },
+    {
+      "source": "TLDR",
+      "title": "Travis Kalanick's Atoms might be getting into the robotaxi business (1 minute read)",
+      "url": "https://techcrunch.com/2026/09/06/travis-kalanicks-atoms-might-be-getting-into-the-robotaxi-business/",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 11:30:19 +0000",
+      "score": null
+    },
+    {
+      "source": "TLDR",
+      "title": "The Curiously Playable Universe (41 minute read)",
+      "url": "https://contraptions.venkateshrao.com/p/the-curiously-playable-universe",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 11:30:19 +0000",
+      "score": null
+    },
+    {
+      "source": "TLDR",
+      "title": "Save your seat",
+      "url": "https://www.baseten.co/resources/webinar/executive-briefing-on-glm-5_3/",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 11:30:19 +0000",
+      "score": null
+    },
+    {
+      "source": "TLDR",
+      "title": "I trust my coding agents with production secrets now (3 minute read)",
+      "url": "https://jacob.gold/posts/i-trust-my-coding-agents-with-production-secrets-now/",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 11:30:19 +0000",
+      "score": null
+    },
+    {
+      "source": "TLDR",
+      "title": "Terraform in Lean 4: If It Compiles, It Will Likely Deploy (26 minute read)",
+      "url": "https://ngrislain.github.io/blog/2026-9-6-terraform-in-lean-4-if-it-compiles-it-will-likely-deploy/",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 11:30:19 +0000",
+      "score": null
+    },
+    {
+      "source": "TLDR",
+      "title": "The loop closes (5 minute read)",
+      "url": "https://henryaj.substack.com/p/the-loop-closes",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 11:30:19 +0000",
+      "score": null
+    },
+    {
+      "source": "TLDR",
+      "title": "We taught a fruit fly to hear human emotion (9 minute read)",
+      "url": "https://oruk.ai/research/we-taught-a-fruit-fly-to-read-human-emotion",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 11:30:19 +0000",
+      "score": null
+    },
+    {
+      "source": "TLDR",
+      "title": "Can Tesla Cybercab Actually Kill Uber? Day-Two Pricing From Austin (7 minute read)",
+      "url": "https://farzad.fm/fznews/can-teslas-cybercab-actually-kill-uber",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 11:30:19 +0000",
+      "score": null
+    },
+    {
+      "source": "TLDR",
+      "title": "iPhone Ultra Production Hitting Just 'a Few Hundred' a Day, Says Nikkei (2 minute read)",
+      "url": "https://www.macrumors.com/2026/09/04/iphone-ultra-production-extremely-limited/",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 11:30:19 +0000",
+      "score": null
+    },
+    {
+      "source": "TLDR",
+      "title": "Between the Graph and the Silicon: Inside the Apple Neural Engine Compiler (10 minute read)",
+      "url": "https://smolnero.com/posts/between-the-graph-and-the-silicon-inside-the-apple-neural-engine-compiler",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 11:30:19 +0000",
+      "score": null
+    },
+    {
+      "source": "TLDR",
+      "title": "I Left the Mac After 12 Years. Omarchy Made Computers Fun Again (4 minute read)",
+      "url": "https://www.hadijaveed.me/2026/09/06/leaving-mac-after-12-years/",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 11:30:19 +0000",
+      "score": null
+    },
+    {
+      "source": "TLDR",
+      "title": "GPT-6 Astra and the Fourth Exponential (6 minute read)",
+      "url": "https://taekim.substack.com/p/gpt-6-astra-and-the-fourth-exponential",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 11:30:19 +0000",
+      "score": null
+    },
+    {
+      "source": "TLDR",
+      "title": "Inc.'s Best Bootstrapped businesses",
+      "url": "https://www.linkedin.com/feed/update/urn:li:activity:7401699691039830016//1/010001a07ba226e4-c6ed4607-954c-4303-b3b4-8416f736802f-000000/8mbfVzxH8v8xMxrQWS23ax3Fjo7CHtU0qYtMhuzI4CY=452",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 11:30:19 +0000",
+      "score": null
+    },
+    {
+      "source": "TLDR",
+      "title": "Stephen Flanders",
+      "url": "https://twitter.com/SteveFlanders22/1/010001a07ba226e4-c6ed4607-954c-4303-b3b4-8416f736802f-000000/Jk5LIeLzUazuvGHVx9lQYmDK3txrONitbzU-EZoiRnA=452",
+      "summary": "",
+      "published": "Mon, 7 Sep 2026 11:30:19 +0000",
+      "score": null
+    }
+  ]
+}

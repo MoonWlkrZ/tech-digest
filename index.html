@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="AI-curated technology reading digest">
+  <title>Tech Brief — 技术阅读日报</title>
+  <style>
+    :root {
+      --bg: #101211; --panel: #171a18; --panel-2: #1d211f;
+      --ink: #edf1e9; --muted: #9da89e; --line: #303832;
+      --accent: #b7e36b; --accent-2: #f2b56b; --danger: #ef887c;
+      --serif: Georgia, 'Times New Roman', serif;
+      --sans: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --mono: 'SFMono-Regular', Consolas, 'Liberation Mono', monospace;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--sans); }
+    a { color: inherit; }
+    .shell { max-width: 1180px; margin: 0 auto; padding: 34px 24px 72px; }
+    .topline { display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--line); padding-bottom:14px; }
+    .brand { font-family: var(--mono); font-size: 12px; letter-spacing:.12em; text-transform:uppercase; color:var(--accent); }
+    .date { color:var(--muted); font-family:var(--mono); font-size:12px; }
+    header { display:grid; grid-template-columns: 1.2fr .8fr; gap:48px; padding:62px 0 44px; }
+    h1 { font-family:var(--serif); font-weight:400; font-size:clamp(42px, 6vw, 76px); line-height:.98; letter-spacing:-.055em; margin:0 0 20px; max-width:700px; }
+    .dek { color:var(--muted); font-size:17px; line-height:1.6; max-width:620px; margin:0; }
+    .meta-panel { border-left:1px solid var(--line); padding-left:25px; align-self:end; }
+    .eyebrow { color:var(--accent-2); font-family:var(--mono); font-size:11px; text-transform:uppercase; letter-spacing:.14em; margin-bottom:12px; }
+    .meta-panel p { color:var(--muted); line-height:1.65; margin:0; font-size:14px; }
+    .toolbar { display:flex; gap:10px; flex-wrap:wrap; align-items:center; border-top:1px solid var(--line); border-bottom:1px solid var(--line); padding:13px 0; margin-bottom:30px; }
+    input, select { background:var(--panel); color:var(--ink); border:1px solid var(--line); border-radius:5px; padding:10px 12px; font:inherit; }
+    input { min-width:270px; flex:1; }
+    select { color:var(--muted); }
+    .count { margin-left:auto; color:var(--muted); font-family:var(--mono); font-size:12px; }
+    .section { margin-top:38px; }
+    .section-head { display:flex; align-items:baseline; gap:14px; margin-bottom:14px; }
+    h2 { font-family:var(--serif); font-weight:400; font-size:27px; margin:0; letter-spacing:-.025em; }
+    .section-count { color:var(--muted); font-family:var(--mono); font-size:11px; }
+    .recommendations { display:grid; gap:14px; }
+    .recommendation { background:var(--panel); border:1px solid #596b4d; padding:24px; display:grid; grid-template-columns:56px 1fr; gap:18px; }
+    .rank { color:var(--accent); font:32px/1 var(--serif); }
+    .stars { color:var(--accent-2); letter-spacing:.08em; font-family:var(--mono); font-size:13px; }
+    .recommendation h3 { font-family:var(--serif); font-size:28px; font-weight:400; line-height:1.1; letter-spacing:-.03em; margin:0 0 12px; }
+    .recommendation h3 a { text-decoration:none; }
+    .recommendation h3 a:hover { color:var(--accent); }
+    .verdict { color:var(--accent-2); font:11px var(--mono); text-transform:uppercase; letter-spacing:.1em; margin-bottom:14px; }
+    .reason { color:var(--ink); font-size:15px; line-height:1.6; margin:0 0 13px; }
+    details { margin-top:14px; border-top:1px solid var(--line); padding-top:12px; }
+    summary { color:var(--accent); cursor:pointer; font:12px var(--mono); list-style-position:inside; }
+    .full-read { color:var(--muted); font-size:14px; line-height:1.65; margin-top:14px; }
+    .key-points { color:var(--muted); font-size:14px; line-height:1.6; margin:0; padding-left:20px; }
+    .recommendation .card-foot { grid-column:2; }
+    .list-score { color:var(--accent-2); font:11px var(--mono); }
+    .pending-score { color:#69746b; }
+    .grid { display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:12px; }
+    article { background:var(--panel); border:1px solid var(--line); padding:18px 18px 17px; min-height:205px; display:flex; flex-direction:column; transition:border-color .18s, transform .18s; }
+    article:hover { border-color:#687866; transform:translateY(-2px); }
+    .source { font-family:var(--mono); font-size:10px; color:var(--accent); letter-spacing:.08em; text-transform:uppercase; margin-bottom:17px; }
+    article h3 { font-family:var(--serif); font-size:21px; font-weight:400; line-height:1.15; letter-spacing:-.025em; margin:0 0 12px; }
+    article h3 a { text-decoration:none; }
+    article h3 a:hover { color:var(--accent); }
+    .summary { color:var(--muted); font-size:13px; line-height:1.55; margin:0; display:-webkit-box; -webkit-line-clamp:4; -webkit-box-orient:vertical; overflow:hidden; }
+    .card-foot { display:flex; justify-content:space-between; gap:10px; margin-top:auto; padding-top:18px; color:#6f7a71; font:10px var(--mono); }
+    .empty { color:var(--muted); padding:30px 0; }
+    footer { color:#69746b; border-top:1px solid var(--line); margin-top:58px; padding-top:18px; font:11px var(--mono); display:flex; justify-content:space-between; gap:18px; }
+    @media (max-width: 850px) { header { grid-template-columns:1fr; gap:28px; padding-top:42px; } .meta-panel { border-left:0; border-top:1px solid var(--line); padding:18px 0 0; } .grid { grid-template-columns:repeat(2, minmax(0,1fr)); } .count { width:100%; margin-left:0; } }
+    @media (max-width: 560px) { .shell { padding:22px 16px 52px; } .grid { grid-template-columns:1fr; } input { min-width:0; width:100%; } .topline { align-items:flex-start; gap:12px; flex-direction:column; } footer { flex-direction:column; } }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <div class="topline"><div class="brand">Tech Brief / Reading Desk</div><div class="date" id="date">loading…</div></div>
+    <header>
+      <div>
+        <div class="eyebrow">AI-assisted daily reading</div>
+        <h1>值得读的技术，<br>不只是收到的技术。</h1>
+        <p class="dek">一个以原文为入口的技术阅读台。先聚合，再筛选；后续由 AI 读完正文，告诉你为什么值得花时间。</p>
+      </div>
+      <aside class="meta-panel">
+        <div class="eyebrow">This edition</div>
+        <p id="edition-note">正在载入今日候选文章……</p>
+      </aside>
+    </header>
+    <div class="toolbar">
+      <input id="search" type="search" placeholder="搜索标题、来源或摘要…" aria-label="搜索文章">
+      <select id="source" aria-label="按来源筛选"><option value="">全部来源</option></select>
+      <div class="count" id="count"></div>
+    </div>
+    <div id="content"></div>
+    <footer><span>原文链接指向文章作者/发布站点</span><span>Generated from RSS + Gmail newsletter sources</span></footer>
+  </main>
+<script>
+  const state = { items: [], recommendations: [] };
+  const $ = (s) => document.querySelector(s);
+  const esc = (s='') => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const short = (s='') => s.replace(/\s+/g,' ').trim();
+  function formatDate(s) { const d = new Date(s); return isNaN(d) ? '' : d.toLocaleDateString('zh-CN',{year:'numeric',month:'short',day:'numeric'}); }
+  function render() {
+    const q = $('#search').value.toLowerCase().trim(), src = $('#source').value;
+    const filtered = state.items.filter(i => (!src || i.source === src) && (!q || `${i.title} ${i.source} ${i.summary}`.toLowerCase().includes(q)));
+    $('#count').textContent = `${filtered.length} / ${state.items.length} 篇`;
+    const stars = (n) => n ? `<span class="stars" aria-label="${n} out of 5 stars">${'★'.repeat(n)}${'☆'.repeat(5-n)}</span>` : '<span class="pending-score">待评估</span>';
+    const recs = state.recommendations.filter(i => !q || `${i.title} ${i.reason} ${i.key_points} ${i.full_analysis || ''}`.toLowerCase().includes(q));
+    const recHtml = recs.length ? `<section class="section"><div class="section-head"><h2>今日推荐顺序</h2><span class="section-count">${recs.length} selected</span></div><div class="recommendations">${recs.map((i,n) => `<article class="recommendation"><div class="rank">0${n+1}</div><div><div class="verdict">${esc(i.verdict || '推荐阅读')} · ${esc(i.source || '')} · ${stars(i.score)}</div><h3><a href="${esc(i.url)}" target="_blank" rel="noopener noreferrer">${esc(i.title)}</a></h3><p class="reason"><strong>为什么值得看：</strong>${esc(i.reason || '')}</p><details><summary>展开完整精读</summary><div class="full-read">${esc(i.full_analysis || '')}</div><ul class="key-points">${(i.key_points || []).map(p => `<li>${esc(p)}</li>`).join('')}</ul></details><div class="card-foot"><span>${esc(i.reading_cost || '')}</span><span>↗ 原文</span></div></div></article>`).join('')}</div></section>` : '';
+    const cards = filtered.map(i => `<article>
+      <div class="source">${esc(i.source)} <span class="list-score">${stars(i.score)}</span></div>
+      <h3><a href="${esc(i.url)}" target="_blank" rel="noopener noreferrer">${esc(i.title)}</a></h3>
+      <p class="summary">${esc(short(i.summary) || '打开原文阅读。')}</p>
+      <div class="card-foot"><span>${esc(formatDate(i.published))}</span><span>↗ 原文</span></div>
+    </article>`).join('');
+    const queue = `<section class="section"><div class="section-head"><h2>阅读队列</h2><span class="section-count">按推荐筛选后保留的候选</span></div><div class="grid">${cards}</div></section>`;
+    $('#content').innerHTML = recHtml + (cards ? queue : '<div class="empty">没有匹配的文章。</div>');
+  }
+  async function init() {
+    try {
+      const r = await fetch('digest.json', {cache:'no-store'}); const payload = await r.json();
+      state.items = Array.isArray(payload) ? payload : (payload.items || []); state.recommendations = Array.isArray(payload) ? [] : (payload.recommendations || []);
+      state.items.sort((a,b) => String(b.published).localeCompare(String(a.published)));
+      const sources = [...new Set(state.items.map(i=>i.source))].sort();
+      sources.forEach(s => $('#source').insertAdjacentHTML('beforeend', `<option value="${esc(s)}">${esc(s)}</option>`));
+      const newest = state.items[0]?.published;
+      $('#date').textContent = newest ? `edition / ${formatDate(newest)}` : 'edition / —';
+      $('#edition-note').textContent = state.recommendations.length ? `${state.recommendations.length} 篇 AI 精读推荐，下面是按推荐顺序排列；其余文章作为阅读队列保留。` : `${state.items.length} 篇候选文章，来自 ${sources.length} 个来源。AI 精读推荐将在数据文件加入 recommendations 后置顶展示。`;
+      render();
+    } catch (e) { $('#content').innerHTML = '<div class="empty">暂时无法加载日报数据。请确认 digest.json 与此页面在同一目录。</div>'; }
+  }
+  $('#search').addEventListener('input', render); $('#source').addEventListener('change', render); init();
+</script>
+</body>
+</html>
