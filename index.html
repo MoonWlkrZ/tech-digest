@@ -108,14 +108,15 @@
       <p class="summary">${esc(short(i.summary) || '打开原文阅读。')}</p>
       <div class="card-foot"><span>${esc(formatDate(i.published))}</span><span>↗ 原文</span></div>
     </article>`).join('');
-    const queue = `<section class="section"><div class="section-head"><h2>阅读队列</h2><span class="section-count">按推荐筛选后保留的候选</span></div><div class="grid">${cards}</div></section>`;
-    $('#content').innerHTML = recHtml + (cards ? queue : '<div class="empty">没有匹配的文章。</div>');
+    const queue = `<section class="section"><div class="section-head"><h2>阅读队列</h2><span class="section-count">按初筛分排序</span></div><div class="grid">${cards}</div></section>`;
+    const judgment = state.judgment ? `<section class="section"><div class="section-head"><h2>今日判断</h2></div><p class="dek">${esc(state.judgment)}</p></section>` : '';
+    $('#content').innerHTML = recHtml + judgment + (cards ? queue : '<div class="empty">没有匹配的文章。</div>');
   }
   async function init() {
     try {
       const r = await fetch('digest.json', {cache:'no-store'}); const payload = await r.json();
-      state.items = Array.isArray(payload) ? payload : (payload.items || []); state.recommendations = Array.isArray(payload) ? [] : (payload.recommendations || []);
-      state.items.sort((a,b) => String(b.published).localeCompare(String(a.published)));
+      state.items = Array.isArray(payload) ? payload : (payload.items || []); state.recommendations = Array.isArray(payload) ? [] : (payload.recommendations || []); state.judgment = Array.isArray(payload) ? '' : (payload.judgment || '');
+      state.items.sort((a,b) => (Number(b.rough_score || b.score || 0) - Number(a.rough_score || a.score || 0)) || String(b.published).localeCompare(String(a.published)));
       const sources = [...new Set(state.items.map(i=>i.source))].sort();
       sources.forEach(s => $('#source').insertAdjacentHTML('beforeend', `<option value="${esc(s)}">${esc(s)}</option>`));
       const newest = state.items[0]?.published;
