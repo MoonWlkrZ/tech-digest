@@ -1,0 +1,138 @@
+{
+  "edition": "2026-09-07-deep-read",
+  "judgment": "今日判断：本周的高价值内容集中在‘把 AI 真正工程化、低成本化’——Uber 的 agent 舰队降本、Spotify 的 token 路由分层，是两套可直接复制的系统实践；而 OpenAI 那个‘99.9% AGI’分数背后的 harness 问题，则提醒我们在狂欢前先问一句‘这是谁用什么跑的、数字被改过吗’。",
+  "recommendations": [
+    {
+      "title": "Running a Software Factory Efficiently at Uber Scale",
+      "url": "https://www.uber.com/us/en/blog/efficient-software-factory/",
+      "verdict": "Uber 用四层 agent 会话 + 成本方程把软件工厂从按 session 优化转向按托管 agent 舰队优化。",
+      "reason": "系统化降本最佳实践案例。",
+      "key_points": [
+        ">70% PR 归 agent；agent 请求 9.4x 增长下总支出靠优化稳住",
+        "固定模型后每 1,000 请求 -34%、每 session -52%",
+        "方向是托管 agent 舰队 + 各自评测基准 + Pareto 高效模型",
+        "可抄手段：subagent 默认开启、reasoning effort Medium、prompt cache TTL 1 小时、MCP 统一网关"
+      ],
+      "reading_cost": "约 12 分钟",
+      "score": 5,
+      "source": "Uber Engineering",
+      "full_analysis": "### 一句话判断\nUber 用四层 agent 会话 + 成本方程把它的大型软件工厂从按 session 优化转向按托管 agent 舰队优化，在 2026 年让总 AI 支出相对稳定并大幅降低单位成本。\n\n### 1. 文章主张了什么\n给出规模事实：>70% 的 PR 归因于本地或云端 agent；工程师构建了 >3,600 个 agent skills、每日执行 >30K 次。2026 年 2 月至 8 月，每周活跃用户增长 7x、每周 agent 请求增长 9.4x，而总 AI 支出自 4 月起相对稳定。固定单一模型后，2 月到 7 月每 1,000 次请求成本较峰值降约 34%，每 session 成本较 6 月峰值降 52%。把 usage 分成四层，把一次 agent session 的成本拆成可独立测量的项（价格/模型、token/请求、上下文、质量），逐层优化。\n\n### 2. 我的解读\n关键动作是把模型固定住再比对，避免升级模型后成本虚低的假象——这是很工程化的严谨。更重要的战略转变是：与其优化几千名工程师各自的终端会话，不如把 SDLC 工作量搬进托管 agent 环境，从而完全掌控模型路由、执行 harness 与支出。\n\n### 3. 对实际工程的意义\n具体手段直接可抄：subagent 默认开启（被称最有效的杠杆）、reasoning effort 默认 Medium、prompt cache 由 5 分钟 TTL 改为 1 小时（应对空闲导致的前缀缓存失效，命中后输入仅按 0.1x 计费）、把所有 MCP 经统一网关（>1,000 个 MCP server），用 CLI 工具解析+Code-mode 去掉 schema 膨胀（>100 工具时约有 50K-70K token 语法前缀，Code-mode 预计省 50% 以上）。\n\n### 4. 可信度与局限\n数据规模与逻辑内洽，但图表里的数值（如 $4,162.07 总花费、433 sessions、95% 缓存命中、$1,097.82 miss 成本、$1,213.87 节省；38 秒回答）是截图示例，未必代表全公司代表性，文中也强调你的数字会因环境而异。成本方程与四层的完整定义、整张指标表在提取中未完整呈现，厂商定价对比部分我未逐项复核。\n\n### 5. 最值得记住的三点\n- >70% PR 归 agent；agent 请求 9.4x 增长下总支出靠优化稳住。\n- 固定模型后每 1,000 请求 -34%、每 session -52%。\n- 方向是托管 agent 舰队 + 各自评测基准 + Pareto 高效模型，而非优化个人终端。\n\n### 我的推荐\n这是系统化降本的最佳实践案例，值得做大厂内部 Agent 平台的分层与成本度量模板；但落地前先建立自己的评测基准（避免选便宜的模型牺牲质量），并把 cache/上下文工程作为第一优先级。",
+      "full_analysis_md": "### 一句话判断\nUber 用四层 agent 会话 + 成本方程把它的大型软件工厂从按 session 优化转向按托管 agent 舰队优化，在 2026 年让总 AI 支出相对稳定并大幅降低单位成本。\n\n### 1. 文章主张了什么\n给出规模事实：>70% 的 PR 归因于本地或云端 agent；工程师构建了 >3,600 个 agent skills、每日执行 >30K 次。2026 年 2 月至 8 月，每周活跃用户增长 7x、每周 agent 请求增长 9.4x，而总 AI 支出自 4 月起相对稳定。固定单一模型后，2 月到 7 月每 1,000 次请求成本较峰值降约 34%，每 session 成本较 6 月峰值降 52%。把 usage 分成四层，把一次 agent session 的成本拆成可独立测量的项（价格/模型、token/请求、上下文、质量），逐层优化。\n\n### 2. 我的解读\n关键动作是把模型固定住再比对，避免升级模型后成本虚低的假象——这是很工程化的严谨。更重要的战略转变是：与其优化几千名工程师各自的终端会话，不如把 SDLC 工作量搬进托管 agent 环境，从而完全掌控模型路由、执行 harness 与支出。\n\n### 3. 对实际工程的意义\n具体手段直接可抄：subagent 默认开启（被称最有效的杠杆）、reasoning effort 默认 Medium、prompt cache 由 5 分钟 TTL 改为 1 小时（应对空闲导致的前缀缓存失效，命中后输入仅按 0.1x 计费）、把所有 MCP 经统一网关（>1,000 个 MCP server），用 CLI 工具解析+Code-mode 去掉 schema 膨胀（>100 工具时约有 50K-70K token 语法前缀，Code-mode 预计省 50% 以上）。\n\n### 4. 可信度与局限\n数据规模与逻辑内洽，但图表里的数值（如 $4,162.07 总花费、433 sessions、95% 缓存命中、$1,097.82 miss 成本、$1,213.87 节省；38 秒回答）是截图示例，未必代表全公司代表性，文中也强调你的数字会因环境而异。成本方程与四层的完整定义、整张指标表在提取中未完整呈现，厂商定价对比部分我未逐项复核。\n\n### 5. 最值得记住的三点\n- >70% PR 归 agent；agent 请求 9.4x 增长下总支出靠优化稳住。\n- 固定模型后每 1,000 请求 -34%、每 session -52%。\n- 方向是托管 agent 舰队 + 各自评测基准 + Pareto 高效模型，而非优化个人终端。\n\n### 我的推荐\n这是系统化降本的最佳实践案例，值得做大厂内部 Agent 平台的分层与成本度量模板；但落地前先建立自己的评测基准（避免选便宜的模型牺牲质量），并把 cache/上下文工程作为第一优先级。"
+    },
+    {
+      "title": "Portal by Spotify Cut My Claude Code Token Usage by 90%",
+      "url": "https://engineering.atspotify.com/2026/9/portal-by-spotify-cut-my-claude-code-token-usage-by-90",
+      "verdict": "用路由分层把 Claude Code 的 token 用量砍约 90%，把 I/O 委托给便宜模型、贵模型留给推理。",
+      "reason": "成本工程+产品推广结合体；把读文件/写样板类 I/O 转给便宜模型。",
+      "key_points": [
+        "把读文件/写样板类 I/O 转给便宜模型，bulk-read 平均省约 90% token",
+        "纯建议式路由不可靠，要用强制的插件/CLI 层执行（shunt 方案）",
+        "模式可复用、可共享（public）、可组合（doc-writer/reviewer/translator）"
+      ],
+      "reading_cost": "约 10 分钟",
+      "score": 4,
+      "source": "Spotify Engineering",
+      "full_analysis": "### 一句话判断\nPortal 的核心是把读文件/写样板这类 I/O 委托给便宜模型、把贵模型留给真正需要推理的问题——用路由分层把 Claude Code 的 token 用量砍约 90%，本质是成本工程+产品推广的结合体。\n\n### 1. 文章主张了什么\n作者指出 AI 编码 agent 的大部分消耗不是思考而是 I/O（批量读文件、写测试样板、更新文档）。Cites Gartner：到 2028 年 AI 编码成本预计超过平均开发者薪资；四分之一的工程负责人每月每开发者花 $200-$500，有的超 $2,000。解法是 Portal 里 AiKA Modes——声明式 agent，跑在像 AWS Lambda 的瞬时运行时上。作者建了两个模式：bulk-reader（Gemini 2.5 Flash）替 Claude 批量读文件只输出结构化要点；code-writer 生成测试、脚手架、类型桩。初版把路由规则写进 CLAUDE.md，但只能建议、不可强制；现改为 Claude Code 插件 shunt，经 Portal CLI actions registry 转发。在 Java 单体仓库四个场景测得 bulk-read 平均省约 90%。\n\n### 2. 我的解读\n最漂亮的是把路由决策与打工模型解耦：何时委托由插件决定，被委托的活可用便宜模型。它不改工作流，只把高价值的 frontier token 留给真问题。但省 90% 是单一指标，且作者承认 code-write 用 token 很难衡量——因为 shunt 直接写盘，Claude 根本看不到输出。\n\n### 3. 对实际工程的意义\n可直接落地：任何 agent 平台都能给机械任务配便宜模型，未必需要 Portal，只要有个可编程路由层（CLI/插件）就能复制。代价是延迟——每次委托是一次网络往返，响应一般 10-30 秒；Portal 单次调用上限 30 秒，超大生成要拆小。\n\n### 4. 可信度与局限\n数据链清晰（Gartner 引用+内部基准），但文章是 Portal 的推广文，非中性评测。90% 只覆盖 bulk-read 场景；缺绝对 token 数、单月美元节省、code-writer 的量化结果，四个场景的原始数据也因提取不完整而无法复核。作者是产品经理，立场偏产品。\n\n### 5. 最值得记住的三点\n- 把读文件/写样板类 I/O 转给便宜模型，bulk-read 平均省约 90% token。\n- 纯建议式路由不可靠，要用强制的插件/CLI 层执行（shunt 方案）。\n- 模式可复用、可共享（public）、可组合（doc-writer/reviewer/translator）。\n\n### 我的推荐\n值得试点，但要在自己的 agent 平台上做忠实 benchmark（含延迟、质量、成本），别只信 vendor 的 90%。",
+      "full_analysis_md": "### 一句话判断\nPortal 的核心是把读文件/写样板这类 I/O 委托给便宜模型、把贵模型留给真正需要推理的问题——用路由分层把 Claude Code 的 token 用量砍约 90%，本质是成本工程+产品推广的结合体。\n\n### 1. 文章主张了什么\n作者指出 AI 编码 agent 的大部分消耗不是思考而是 I/O（批量读文件、写测试样板、更新文档）。Cites Gartner：到 2028 年 AI 编码成本预计超过平均开发者薪资；四分之一的工程负责人每月每开发者花 $200-$500，有的超 $2,000。解法是 Portal 里 AiKA Modes——声明式 agent，跑在像 AWS Lambda 的瞬时运行时上。作者建了两个模式：bulk-reader（Gemini 2.5 Flash）替 Claude 批量读文件只输出结构化要点；code-writer 生成测试、脚手架、类型桩。初版把路由规则写进 CLAUDE.md，但只能建议、不可强制；现改为 Claude Code 插件 shunt，经 Portal CLI actions registry 转发。在 Java 单体仓库四个场景测得 bulk-read 平均省约 90%。\n\n### 2. 我的解读\n最漂亮的是把路由决策与打工模型解耦：何时委托由插件决定，被委托的活可用便宜模型。它不改工作流，只把高价值的 frontier token 留给真问题。但省 90% 是单一指标，且作者承认 code-write 用 token 很难衡量——因为 shunt 直接写盘，Claude 根本看不到输出。\n\n### 3. 对实际工程的意义\n可直接落地：任何 agent 平台都能给机械任务配便宜模型，未必需要 Portal，只要有个可编程路由层（CLI/插件）就能复制。代价是延迟——每次委托是一次网络往返，响应一般 10-30 秒；Portal 单次调用上限 30 秒，超大生成要拆小。\n\n### 4. 可信度与局限\n数据链清晰（Gartner 引用+内部基准），但文章是 Portal 的推广文，非中性评测。90% 只覆盖 bulk-read 场景；缺绝对 token 数、单月美元节省、code-writer 的量化结果，四个场景的原始数据也因提取不完整而无法复核。作者是产品经理，立场偏产品。\n\n### 5. 最值得记住的三点\n- 把读文件/写样板类 I/O 转给便宜模型，bulk-read 平均省约 90% token。\n- 纯建议式路由不可靠，要用强制的插件/CLI 层执行（shunt 方案）。\n- 模式可复用、可共享（public）、可组合（doc-writer/reviewer/translator）。\n\n### 我的推荐\n值得试点，但要在自己的 agent 平台上做忠实 benchmark（含延迟、质量、成本），别只信 vendor 的 90%。"
+    },
+    {
+      "title": "OpenAI's AGI number came from a harness, not the model",
+      "url": "https://thenextweb.com/news/openai-astra-arc-agi-3-harness-62-7-vs-99-9-benchmark-revisions",
+      "verdict": "99.9% 的 AGI 得分来自 OpenAI 自家 harness，同一权重官方评测只有 62.7%。",
+      "reason": "提醒大家看 benchmark 先问用什么 harness、谁改过数字。",
+      "key_points": [
+        "ARC Prize 用自家 harness 跑 Astra 得 62.7%，OpenAI 自家 Provider Adapter 跑出 99.9%，只是脚手架不同",
+        "不靠推理档位也撸出 96.7%，adapter 还省 49% token、快 3.66 倍",
+        "广为流传的 99.9% vs 7.8% 不是同一测试；对等比较是 62.7% vs 7.8%",
+        "发布后 5 项指标被悄悄改写（幻觉率、ExploitBench），被称 benchmaxxing"
+      ],
+      "reading_cost": "约 7-9 分钟",
+      "score": 5,
+      "source": "The Next Web",
+      "full_analysis": "### 一句话判断\n99.9% 的 AGI 得分来自 OpenAI 自家 harness，同一权重官方评测只有 62.7%——benchmark 分数一旦脱离测试环境就基本失去了可比性。\n\n### 1. 文章主张了什么\nARC Prize 用自家 harness 跑 Astra 得 62.7%，OpenAI 自家 Provider Adapter 跑同一权重得到 99.9%，两者只是‘脚手架’不同。不靠推理档位也能撸出 96.7%，且 adapter 还省 49% token、快 3.66 倍。文中明确指出广为流传的 99.9% vs 7.8% 并不是同一测试，对等比较应为 62.7% vs 7.8%。发布后有 5 项指标被悄悄改写（幻觉率、ExploitBench），被社区称为 benchmaxxing。\n\n### 2. 我的解读\n核心教训是测试环境（harness）本身就能制造巨大的分数差异，而脚手架差异恰恰是媒体转述时最容易丢失的上下文。真正值得盯的往往不是峰值分数，而是评测方式与变更记录。\n\n### 3. 对实际工程的意义\n选模型、做能力对比或对外宣传能力上限时，第一步永远是问：这组分数是谁用什么 harness 跑的？数字后来有没有被改过？把‘对等比较’作为默认习惯，能避免被单点指标带偏。\n\n### 4. 可信度与局限\n源自 The Next Web 的报道，属转述性质；非原始评测机构发布，也未附上两家测试脚本做逐步核验。对比结论方向可信，但具体数字仍建议回到 ARC Prize 与 OpenAI 的原始发布材料确认。\n\n### 5. 最值得记住的三点\n- 同一权重、不同 harness：62.7%（ARC Prize）vs 99.9%（OpenAI adapter）。\n- 不靠推理档位也有 96.7%，且省 49% token、快 3.66 倍。\n- 对等比较应为 62.7% vs 7.8%，发布后 5 项指标被悄然改写。\n\n### 我的推荐\n别把任何一个单点 benchmark 当成结论；把‘先问 harness、再看指标变更史’写进评测流程，比记住某个数字更有价值。",
+      "full_analysis_md": "### 一句话判断\n99.9% 的 AGI 得分来自 OpenAI 自家 harness，同一权重官方评测只有 62.7%——benchmark 分数一旦脱离测试环境就基本失去了可比性。\n\n### 1. 文章主张了什么\nARC Prize 用自家 harness 跑 Astra 得 62.7%，OpenAI 自家 Provider Adapter 跑同一权重得到 99.9%，两者只是‘脚手架’不同。不靠推理档位也能撸出 96.7%，且 adapter 还省 49% token、快 3.66 倍。文中明确指出广为流传的 99.9% vs 7.8% 并不是同一测试，对等比较应为 62.7% vs 7.8%。发布后有 5 项指标被悄悄改写（幻觉率、ExploitBench），被社区称为 benchmaxxing。\n\n### 2. 我的解读\n核心教训是测试环境（harness）本身就能制造巨大的分数差异，而脚手架差异恰恰是媒体转述时最容易丢失的上下文。真正值得盯的往往不是峰值分数，而是评测方式与变更记录。\n\n### 3. 对实际工程的意义\n选模型、做能力对比或对外宣传能力上限时，第一步永远是问：这组分数是谁用什么 harness 跑的？数字后来有没有被改过？把‘对等比较’作为默认习惯，能避免被单点指标带偏。\n\n### 4. 可信度与局限\n源自 The Next Web 的报道，属转述性质；非原始评测机构发布，也未附上两家测试脚本做逐步核验。对比结论方向可信，但具体数字仍建议回到 ARC Prize 与 OpenAI 的原始发布材料确认。\n\n### 5. 最值得记住的三点\n- 同一权重、不同 harness：62.7%（ARC Prize）vs 99.9%（OpenAI adapter）。\n- 不靠推理档位也有 96.7%，且省 49% token、快 3.66 倍。\n- 对等比较应为 62.7% vs 7.8%，发布后 5 项指标被悄然改写。\n\n### 我的推荐\n别把任何一个单点 benchmark 当成结论；把‘先问 harness、再看指标变更史’写进评测流程，比记住某个数字更有价值。"
+    }
+  ],
+  "items": [
+    {
+      "url": "https://www.uber.com/us/en/blog/efficient-software-factory/",
+      "title": "Running a Software Factory Efficiently at Uber Scale",
+      "source": "Uber Engineering",
+      "summary": "Uber 用四层 agent 会话 + 成本方程把软件工厂转向按托管 agent 舰队优化，agent 请求 9.4x 增长下总支出靠优化稳住。",
+      "rough_score": 5,
+      "rough_confidence": "high",
+      "score": 5,
+      "published": "2026-09-07"
+    },
+    {
+      "url": "https://engineering.atspotify.com/2026/9/portal-by-spotify-cut-my-claude-code-token-usage-by-90",
+      "title": "Portal by Spotify Cut My Claude Code Token Usage by 90%",
+      "source": "Spotify Engineering",
+      "summary": "用路由分层把 Claude Code 的 token 用量砍约 90%，把读文件/写样板类 I/O 转给便宜模型。",
+      "rough_score": 4,
+      "rough_confidence": "medium",
+      "score": 4,
+      "published": "2026-09-07"
+    },
+    {
+      "url": "https://thenextweb.com/news/openai-astra-arc-agi-3-harness-62-7-vs-99-9-benchmark-revisions",
+      "title": "OpenAI's AGI number came from a harness, not the model",
+      "source": "The Next Web",
+      "summary": "99.9% 的 AGI 得分来自 OpenAI 自家 harness，同一权重官方评测只有 62.7%，对等比较应是 62.7% vs 7.8%。",
+      "rough_score": 5,
+      "rough_confidence": "high",
+      "score": 5,
+      "published": "2026-09-07"
+    },
+    {
+      "url": "https://www.anthropic.com/research/formalizing-fermats-last-theorem",
+      "title": "Formalizing Fermat's Last Theorem",
+      "source": "Anthropic",
+      "summary": "Claude 在 11 天内几乎自主完成费马大定理首个端到端机器可验证证明，AI 形式化数学能力远超预期。",
+      "rough_score": 5,
+      "rough_confidence": "high",
+      "score": 5,
+      "published": "2026-09-07"
+    },
+    {
+      "url": "https://blog.detail.dev/posts/towards-self-driving-codebases",
+      "title": "Towards Self-Driving Codebases",
+      "source": "Detail",
+      "summary": "别堆 token，真正高价值是好点子+好架构简化；投资重点应放在让 dev 环境对 agent 友好。",
+      "rough_score": 4,
+      "rough_confidence": "medium",
+      "score": 4,
+      "published": "2026-09-07"
+    },
+    {
+      "url": "https://jacob.gold/posts/i-trust-my-coding-agents-with-production-secrets-now/",
+      "title": "I trust my coding agents with production secrets now",
+      "source": "jacob.gold",
+      "summary": "资深安全工程师给了 agent 真实生产密钥，并认为是合理风险-收益取舍；隔离工作区+前沿模型才是重点。",
+      "rough_score": 4,
+      "rough_confidence": "medium",
+      "score": 4,
+      "published": "2026-09-07"
+    },
+    {
+      "url": "https://zod.dev/blog/reducing-memory-footprint",
+      "title": "Reducing Zod's Memory Footprint (Method Memoization)",
+      "source": "Zod",
+      "summary": "用方法记忆化把 Zod 单个 schema 的堆占用降近一个数量级，z.string() 从 7.5kb 降到 784 字节。",
+      "rough_score": 4,
+      "rough_confidence": "medium",
+      "score": 4,
+      "published": "2026-09-07"
+    },
+    {
+      "url": "https://thehackernews.com/2026/09/attackers-breached-jetbrains-cadence.html",
+      "title": "Attackers Breached JetBrains Cadence via Unpatched TeamCity",
+      "source": "The Hacker News",
+      "summary": "JetBrains 自家被未打补丁的 TeamCity 漏洞（CVE-2026-63077）攻破，泄露 AWS 凭证与 2024 年备份。",
+      "rough_score": 4,
+      "rough_confidence": "medium",
+      "score": 4,
+      "published": "2026-09-07"
+    }
+  ]
+}
