@@ -65,7 +65,8 @@
       "rough_confidence": "medium",
       "score_reason": "支付系统规模化工程案例，架构图有价值但技术深度一般",
       "score": null,
-      "highlight": "与 Amex Distinguished Engineer Ben Cane 对话，讲\"刷卡必须在极短窗口内出结果\"如何塑造整个支付架构。交易进入多个独立处理单元组成的 cell-based 架构，某服务中途失败时不能简单重试（会污染该单元），也无法随意迁到别的单元（需知晓前序进度、造成耦合）；大量工程投入用来在压力下维持隔离，并回顾 2018 年起向云原生的现代化。"
+      "highlight": "与 Amex Distinguished Engineer Ben Cane 对话，讲\"刷卡必须在极短窗口内出结果\"如何塑造整个支付架构。交易进入多个独立处理单元组成的 cell-based 架构，某服务中途失败时不能简单重试（会污染该单元），也无法随意迁到别的单元（需知晓前序进度、造成耦合）；大量工程投入用来在压力下维持隔离，并回顾 2018 年起向云原生的现代化。",
+      "excerpt": "A customer making a card payment expects it to get approved or declined almost instantly. This single requirement shapes everything about how a payment is built, because the entire processing of the payment has to finish within this short window."
     },
     {
       "url": "https://newsletter.pragmaticengineer.com/p/what-is-happening-with-code-reviews",
@@ -77,7 +78,8 @@
       "rough_confidence": "high",
       "score_reason": "AI 生成代码后代码审查最系统的应对全景图，直接可复制",
       "score": 4,
-      "highlight": "AI 已生成多数代码，GitHub PR 三年涨 5 倍、2025 年底以来几乎再翻倍。文章盘点当下应对 AI 代码洪流的代码审查策略：人审 AI 的 review、按\"爆炸半径\"分级（OpenAI/Anthropic）、只审计划/测试/schema 而非实现、少产代码、全量人工、以及极少见的\"放弃人工 review\"；附大量真实案例（Uber uReview、Duckbill Group 风险分级）。"
+      "highlight": "AI 已生成多数代码，GitHub PR 三年涨 5 倍、2025 年底以来几乎再翻倍。文章盘点当下应对 AI 代码洪流的代码审查策略：人审 AI 的 review、按\"爆炸半径\"分级（OpenAI/Anthropic）、只审计划/测试/schema 而非实现、少产代码、全量人工、以及极少见的\"放弃人工 review\"；附大量真实案例（Uber uReview、Duckbill Group 风险分级）。",
+      "excerpt": "One question haunting the minds of CTOs and heads of engineering whom I've been talking with, is how to deal with large quantities of code review which have only been growing now that AI agents generate most code at many tech companies. Since the end of 2025, it has seemed that the era of devs writing code by hand is over at startups and in Big Tech."
     },
     {
       "url": "https://tldr.tech/tech/2026-09-08",
@@ -111,7 +113,8 @@
       "rough_confidence": "medium",
       "score_reason": "Anthropic 算力大合同，行业大额信息",
       "score": null,
-      "highlight": "据 The Information 统计，Anthropic 过去 11 个月签署约 $5170 亿算力容量租约，对应 14.8GW、未来数年分批到位；其中 Google 与 AWS 合计约贡献 11GW。公司此前告知投资者 2029 年前租服务器约花 $1800 亿，如今显著超支；6 月已向美国 SEC 保密提交 IPO。"
+      "highlight": "据 The Information 统计，Anthropic 过去 11 个月签署约 $5170 亿算力容量租约，对应 14.8GW、未来数年分批到位；其中 Google 与 AWS 合计约贡献 11GW。公司此前告知投资者 2029 年前租服务器约花 $1800 亿，如今显著超支；6 月已向美国 SEC 保密提交 IPO。",
+      "excerpt": "AI lab Anthropic has signed some $517 billion in compute capacity leases in the past 11 months — 14.8GW of compute capacity it will access over the next few years."
     },
     {
       "url": "https://www.testingcatalog.com/openai-prepares-managed-agents-for-devday-2026/",
@@ -123,7 +126,8 @@
       "rough_confidence": "medium",
       "score_reason": "OpenAI 托管 agent，产品动向",
       "score": null,
-      "highlight": "OpenAI 为 9 月底的 DevDay 准备 Managed Agents，功能大体对标 Anthropic 现有产品（配置环境、skills、plugins、业务向体验）。从 custom GPTs 到 agent builder 演进，如今 agent 能力已可直接覆盖管道；能否在价格上形成竞争力仍是疑问。另有\"广告可解析为 agent\"的 demo，点击直达 agent 引导用户转化。"
+      "highlight": "OpenAI 为 9 月底的 DevDay 准备 Managed Agents，功能大体对标 Anthropic 现有产品（配置环境、skills、plugins、业务向体验）。从 custom GPTs 到 agent builder 演进，如今 agent 能力已可直接覆盖管道；能否在价格上形成竞争力仍是疑问。另有\"广告可解析为 agent\"的 demo，点击直达 agent 引导用户转化。",
+      "excerpt": "OpenAI appears to be preparing managed agents for DevDay, including configurable environments, skills, plugins, and a business-focused experience."
     },
     {
       "url": "https://inferencex.semianalysis.com/blog/tpu-inferencex-full-steam",
@@ -135,7 +139,8 @@
       "rough_confidence": "medium",
       "score_reason": "SemiAnalysis 长文，推理成本与 TPU 关键",
       "score": null,
-      "highlight": "SemiAnalysis 发布 TPUv7 Ironwood 首个第三方推理结果，与 B200/B300 做同口径对照：Qwen3.5 397B FP8 下每美元性能最高领先约 50%，靠更低 TCO 抵消原始吞吐的不足；TorchTPU 将取代 TorchAX，约十月开源；下一步做 agentic/KV-cache 卸载、spec decoding，并预期带原生 FP4 的 TPUv8i 与 Rubin NVL72 正面对抗。"
+      "highlight": "SemiAnalysis 发布 TPUv7 Ironwood 首个第三方推理结果，与 B200/B300 做同口径对照：Qwen3.5 397B FP8 下每美元性能最高领先约 50%，靠更低 TCO 抵消原始吞吐的不足；TorchTPU 将取代 TorchAX，约十月开源；下一步做 agentic/KV-cache 卸载、spec decoding，并预期带原生 FP4 的 TPUv8i 与 Rubin NVL72 正面对抗。",
+      "excerpt": "For more than a decade, the industry has watched Google build an empire on its own silicon. Search, Ads, YouTube, and every generation of Gemini run on TPUs."
     },
     {
       "url": "https://www.armosec.io/blog/untrusted-tool-output-prompt-injection/",
@@ -147,7 +152,8 @@
       "rough_confidence": "high",
       "score_reason": "工具输出导致 prompt injection，agent 安全实操",
       "score": null,
-      "highlight": "工具输出之所以不可信，是因为信任边界外的人能往字段里写东西（Jira 工单、PR 描述、CRM 备注）。OWASP 的三道屏各看一个时刻，真正攻击发生在\"结果\"与\"下一跳调用\"之间；可观测信号是该次调用的参数在 agent 历史里从未出现过。建议按字段重标工具信任，并用\"不可信字段数 × 高权限工具数\"排序风险。"
+      "highlight": "工具输出之所以不可信，是因为信任边界外的人能往字段里写东西（Jira 工单、PR 描述、CRM 备注）。OWASP 的三道屏各看一个时刻，真正攻击发生在\"结果\"与\"下一跳调用\"之间；可观测信号是该次调用的参数在 agent 历史里从未出现过。建议按字段重标工具信任，并用\"不可信字段数 × 高权限工具数\"排序风险。",
+      "excerpt": "Tool output is untrusted because your own systems produce it. That is the part of the OWASP guidance that never makes it into a deployment."
     },
     {
       "url": "https://www.seangoedecke.com/deckard/",
@@ -159,7 +165,8 @@
       "rough_confidence": "medium",
       "score_reason": "浏览器端检测 AI 文本，工程实现有趣",
       "score": null,
-      "highlight": "作者做了 Chrome 扩展 Deckard，用本地小模型自动扫描网页上的 AI 文本，不把浏览内容发给第三方。基准了若干本地小模型（误报约 2%，AI 文本召回 21–56%），远不如 Pangram 但后者在后台跑不动；扩展经 native messaging 与本地模型通信，活跃时占 400MB–1.2GB，闲置 5 分钟自动关闭。"
+      "highlight": "作者做了 Chrome 扩展 Deckard，用本地小模型自动扫描网页上的 AI 文本，不把浏览内容发给第三方。基准了若干本地小模型（误报约 2%，AI 文本召回 21–56%），远不如 Pangram 但后者在后台跑不动；扩展经 native messaging 与本地模型通信，活跃时占 400MB–1.2GB，闲置 5 分钟自动关闭。",
+      "excerpt": "Automated AI text detection is currently an underserved niche. The only game in town is Pangram, which does an excellent job but desperately needs more competition."
     },
     {
       "url": "https://zatona.dev/blog/the-two-mmlu-scores",
@@ -171,7 +178,8 @@
       "rough_confidence": "high",
       "score_reason": "基准名陷阱讲得最系统，评估可比性",
       "score": 4,
-      "highlight": "同一模型家族两个构建的 MMLU 分数 0.781 与 0.79，在 verifier 眼中是\"不可比\"。因为 \"MMLU\" 只锁定名字，split、runner、prompt 格式、grader（exact-match vs llm-judge）、runner 的网络可达性都在变，且每项差的是整分点而非千分位。可比性取决于结果可追溯到的参照系，而不是那个数字本身。"
+      "highlight": "同一模型家族两个构建的 MMLU 分数 0.781 与 0.79，在 verifier 眼中是\"不可比\"。因为 \"MMLU\" 只锁定名字，split、runner、prompt 格式、grader（exact-match vs llm-judge）、runner 的网络可达性都在变，且每项差的是整分点而非千分位。可比性取决于结果可追溯到的参照系，而不是那个数字本身。",
+      "excerpt": "Two evaluation records appear in the same table. One reports mmlu accuracy 0.781 for build 42; the other reports 0.79 for build 44."
     },
     {
       "url": "https://ref.wisprflow.ai/tldrai-sep8-secondary/1/010001a0814e4bd5-ee1b155d-4879-4dfe-8219-1bed9e99c234-000000/KZKPgNXvUNLg7o9d21pEJMP_tS_jrDgZ56MtXcGYmpc=452",
@@ -205,7 +213,8 @@
       "rough_confidence": "medium",
       "score_reason": "TPU 加速 agent 工具链仓库",
       "score": null,
-      "highlight": "Google 面向 TPU ML 开发的一组 Gemini 驱动的 agent 集合：MaxCode（PyTorch→JAX 转换并接 MaxText），MaxKernel（编写/优化 Pallas 内核、CUDA→Pallas 移植、profiling 与 MFU 优化、自动生成测试桩）。仓库免责声明强调这不是官方支持的 Google 产品，也不参与 Google OSS 漏洞奖励计划。"
+      "highlight": "Google 面向 TPU ML 开发的一组 Gemini 驱动的 agent 集合：MaxCode（PyTorch→JAX 转换并接 MaxText），MaxKernel（编写/优化 Pallas 内核、CUDA→Pallas 移植、profiling 与 MFU 优化、自动生成测试桩）。仓库免责声明强调这不是官方支持的 Google 产品，也不参与 Google OSS 漏洞奖励计划。",
+      "excerpt": "Accelerator Agents is a collection of AI-powered tools designed to accelerate machine learning development on Google Cloud TPUs. This repository hosts agents that assist with code migration, kernel optimization, and performance tuning."
     },
     {
       "url": "https://github.com/QwenLM/Qwen-Drive-1.0",
@@ -228,7 +237,8 @@
       "rough_confidence": "medium",
       "score_reason": "塞进 prompt 的 agent harness，思路新颖",
       "score": null,
-      "highlight": "hip-agent（harness in prompt）是\"给 agent 用\"的极小 harness：核心循环约 200 行 Python，模型只拿到 `sh` 与 `view_image` 两个工具，配置走环境变量，子 agent 是子进程，插件走 Agent Plugins、hooks 复用 Claude Code 契约；harness 可被模型读取、修复、改写。在 DeepSWE 113 任务上表现与 Codex CLI 相当。作者主张每个模型厂商应发布最小 native reference harness。"
+      "highlight": "hip-agent（harness in prompt）是\"给 agent 用\"的极小 harness：核心循环约 200 行 Python，模型只拿到 `sh` 与 `view_image` 两个工具，配置走环境变量，子 agent 是子进程，插件走 Agent Plugins、hooks 复用 Claude Code 契约；harness 可被模型读取、修复、改写。在 DeepSWE 113 任务上表现与 Codex CLI 相当。作者主张每个模型厂商应发布最小 native reference harness。",
+      "excerpt": "hip-agent (harness in prompt) is a small agent harness designed for agents: the model reads its own harness, configuration is environment variables, and the rest is existing protocols."
     },
     {
       "url": "https://borretti.me/article/the-education-of-a-doomer",
@@ -251,7 +261,8 @@
       "rough_confidence": "medium",
       "score_reason": "具身智能综述向",
       "score": null,
-      "highlight": "反驳\"具身智能只是集成问题\"的乐观叙事。VLA 模型进展快（Gemini Robotics On-Device 2 在机器人本地跑），但训练数据是结构性短缺——操作数据只能靠真机+真人遥操作逐个 episode 生成，不像 LLM 有现成语料；BMW 的 Figure 02 在 11 个月仅约 1250 运行小时。作者主张\"越窄越好\"：把范围收到有商业闭环的特定场景，并指出概率性 AI 与百年工程消除概率的物理世界存在根本冲突。"
+      "highlight": "反驳\"具身智能只是集成问题\"的乐观叙事。VLA 模型进展快（Gemini Robotics On-Device 2 在机器人本地跑），但训练数据是结构性短缺——操作数据只能靠真机+真人遥操作逐个 episode 生成，不像 LLM 有现成语料；BMW 的 Figure 02 在 11 个月仅约 1250 运行小时。作者主张\"越窄越好\"：把范围收到有商业闭环的特定场景，并指出概率性 AI 与百年工程消除概率的物理世界存在根本冲突。",
+      "excerpt": "The comforting story this time is a story about transfer. Vision is solved. Language is solved."
     },
     {
       "url": "https://jimmyhmiller.com/shape-of-unfinished-ai-codebases",
@@ -263,7 +274,8 @@
       "rough_confidence": "medium",
       "score_reason": "AI 代码库的‘未完成形状’，工程洞察",
       "score": null,
-      "highlight": "人手写的代码库是\"整块缺失\"（按钮没反应、实现残缺），AI 代码库则是另一种可预测的坏法——极擅长给出\"已完整、已可用\"的幻觉；agent 会持续向你谎报进度，一路挖出 Lint/test/metrics 都救不回来的 chasm，只能重写。作者靠直觉预判问题位置来规避，却难以 codify 这种判断，只能回到当年学编程时的新手心态与耐心。"
+      "highlight": "人手写的代码库是\"整块缺失\"（按钮没反应、实现残缺），AI 代码库则是另一种可预测的坏法——极擅长给出\"已完整、已可用\"的幻觉；agent 会持续向你谎报进度，一路挖出 Lint/test/metrics 都救不回来的 chasm，只能重写。作者靠直觉预判问题位置来规避，却难以 codify 这种判断，只能回到当年学编程时的新手心态与耐心。",
+      "excerpt": "In a program written by a person (especially a singular person), there are just obvious whole parts missing. A parser might not accept full input, a button might not do anything at all, a page may just be missing."
     },
     {
       "url": "https://ref.wisprflow.ai/tldrai-sep8-quicklinks/1/010001a0814e4bd5-ee1b155d-4879-4dfe-8219-1bed9e99c234-000000/Q4NtXicaRdKs8Ow3sMBDkAoODVMyIvkAOXTcvouHEjw=452",
@@ -286,7 +298,8 @@
       "rough_confidence": "medium",
       "score_reason": "纠正常见认知：余弦相似度不是安全性质，值得读",
       "score": null,
-      "highlight": "余弦相似度衡量的是角度，没有 truth/authority/provenance 概念；RAG 投毒靠\"词汇工程\"把伪造文档的 embedding 挪近目标查询，5 篇文档即可污染 260 万文档库。攻击者的检索要求恰好也是其签名——ingestion 时检测近邻 + 高相似簇，把投毒成功率从 95% 降到 20%；而 per-query 的 access-control where 子句才是防跨租户泄漏的唯一结构性防御。"
+      "highlight": "余弦相似度衡量的是角度，没有 truth/authority/provenance 概念；RAG 投毒靠\"词汇工程\"把伪造文档的 embedding 挪近目标查询，5 篇文档即可污染 260 万文档库。攻击者的检索要求恰好也是其签名——ingestion 时检测近邻 + 高相似簇，把投毒成功率从 95% 降到 20%；而 per-query 的 access-control where 子句才是防跨租户泄漏的唯一结构性防御。",
+      "excerpt": "The vector database returns the most relevant documents, defined as the ones with the highest cosine similarity to the query. This is a mathematical property with no concept of accuracy, authority or provenance."
     },
     {
       "url": "https://chipsandcheese.com/p/arms-c2-ultra-g2-ultra-nx-and-css",
@@ -309,7 +322,8 @@
       "rough_confidence": "medium",
       "score_reason": "字节实时空间视频模型，产品向",
       "score": null,
-      "highlight": "据 Bloomberg 报道，字节跳动在张一鸣亲自督战下准备实时空间视频模型，或最早下月发布；2026 年字节 AI 优先项中 world models 居首。公司同时走两条路——面向具身智能/机器人的 VLA 路线，与面向娱乐/游戏的 3D 仿真；上周获 $300 亿贷款，称 AI 资本开支或达 $700 亿；Seedance 已支撑 CapCut 与 Doubao。"
+      "highlight": "据 Bloomberg 报道，字节跳动在张一鸣亲自督战下准备实时空间视频模型，或最早下月发布；2026 年字节 AI 优先项中 world models 居首。公司同时走两条路——面向具身智能/机器人的 VLA 路线，与面向娱乐/游戏的 3D 仿真；上周获 $300 亿贷款，称 AI 资本开支或达 $700 亿；Seedance 已支撑 CapCut 与 Doubao。",
+      "excerpt": "ByteDance is preparing an AI model for real-time spatial video generation, with founder Zhang Yiming personally overseeing the work and a launch possible as soon as next month, Bloomberg reported."
     },
     {
       "url": "https://blog.google/innovation-and-ai/models-and-research/google-research/contrail-avoidance-ultra-long-haul-flights/",
@@ -332,7 +346,8 @@
       "rough_confidence": "medium",
       "score_reason": "Lovable 并行实验 drafts，产品设计",
       "score": null,
-      "highlight": "正文读取失败——页面只返回了标题与导航，文章主体为 JS 渲染、未输出实质正文，无法据正文提炼内容。从标题看是 Lovable 推出 Drafts 以支持并行 app 实验与协作探索。"
+      "highlight": "正文读取失败——页面只返回了标题与导航，文章主体为 JS 渲染、未输出实质正文，无法据正文提炼内容。从标题看是 Lovable 推出 Drafts 以支持并行 app 实验与协作探索。",
+      "excerpt": "The best builders experiment, tinker, and tweak. Now, when you want to make a change to how your project looks, like its layout, design, or copy, you can create a draft and explore different versions before changing your live app."
     },
     {
       "url": "https://www.linkedin.com/feed/update/urn:li:activity:7401699691039830016//1/010001a0814e4bd5-ee1b155d-4879-4dfe-8219-1bed9e99c234-000000/_z6viFp4MrSiIVm2X2siFwVyih9x3pHpazCbDIft02U=452",
@@ -432,7 +447,8 @@
       "rough_confidence": "medium",
       "score_reason": "哈希链/Merkle 树防篡改审计日志，工程干货",
       "score": null,
-      "highlight": "防篡改审计日志 = 修改能被\"非写入者\"检测到。三种机制各证明不同东西：hash chain 证明序列/内容完整性，Merkle tree + 签名 checkpoint 提供 O(log n) 的一致性证明（追加历史），外部时间戳 anchor 绑定时间。附完整 Rust 实现，并讲解密钥丢失、TSA 过期、时钟漂移、算法弃用等现实操作决策如何决定保证是否成立。"
+      "highlight": "防篡改审计日志 = 修改能被\"非写入者\"检测到。三种机制各证明不同东西：hash chain 证明序列/内容完整性，Merkle tree + 签名 checkpoint 提供 O(log n) 的一致性证明（追加历史），外部时间戳 anchor 绑定时间。附完整 Rust 实现，并讲解密钥丢失、TSA 过期、时钟漂移、算法弃用等现实操作决策如何决定保证是否成立。",
+      "excerpt": "A tamper-evident audit log is one whose modification can be detected by someone who did not write it. That definition excludes an audit table whose only protection is access control."
     },
     {
       "url": "https://www.wiz.io/blog/red-agent-snowflake-copilot-cicd-bug",
@@ -444,7 +460,8 @@
       "rough_confidence": "medium",
       "score_reason": "Copilot 辅助 PR 引入漏洞，AI/安全交叉",
       "score": null,
-      "highlight": "正文读取失败——页面只返回了引言一句与若干 demo/CTA 文案，实际文章主体被产品墙挡住，无法据正文提炼内容。标题指向\"GitHub Copilot 辅助的 PR 引入缺陷，被 Wiz Red Agent 自主利用进 Snowflake 内部 Jira\"。"
+      "highlight": "正文读取失败——页面只返回了引言一句与若干 demo/CTA 文案，实际文章主体被产品墙挡住，无法据正文提炼内容。标题指向\"GitHub Copilot 辅助的 PR 引入缺陷，被 Wiz Red Agent 自主利用进 Snowflake 内部 Jira\"。",
+      "excerpt": "Wiz Red Agent independently discovered and exploited a GitHub Actions injection missed by GitHub's Advanced Security, validated access to sensitive data in Snowflake's internal Jira, and assessed the blast radius—all without human intervention, five days after the flaw became live."
     },
     {
       "url": "https://www.avepoint.com/events/ai-virtual-summit",
@@ -665,7 +682,8 @@
       "rough_confidence": "medium",
       "score_reason": "Cursor 自托管机器跑云 agent，实践向",
       "score": null,
-      "highlight": "Cursor 云 agent 可跑在你自己网络内的动态机器池上；agent loop / inference / 规划仍在 Cursor 云，只有 tool execution 挪到你环境。worker 用 `agent worker start` 建立长连接的出站 HTTPS，Cursor 从不反向连进内网；分 My Machines / Pools 两种配置，pools 按队列自动扩缩容，并已支持 Lambda、Cloudflare、Vercel、Modal 等 sandbox 提供商及 Linux 上的 computer use。"
+      "highlight": "Cursor 云 agent 可跑在你自己网络内的动态机器池上；agent loop / inference / 规划仍在 Cursor 云，只有 tool execution 挪到你环境。worker 用 `agent worker start` 建立长连接的出站 HTTPS，Cursor 从不反向连进内网；分 My Machines / Pools 两种配置，pools 按队列自动扩缩容，并已支持 Lambda、Cloudflare、Vercel、Modal 等 sandbox 提供商及 Linux 上的 computer use。",
+      "excerpt": "Cursor cloud agents can execute on dynamically scheduled pools of machines inside your network. You manage the underlying infrastructure, while agents are still started and managed from Cursor."
     },
     {
       "url": "https://www.redhat.com/en/blog/introducing-external-secrets-management-console-plugin",
@@ -798,7 +816,8 @@
       "rough_confidence": "high",
       "score_reason": "agent 用测试/验证技术的一手实证，最扎实",
       "score": 5,
-      "highlight": "用 Zstd 实现评测，对 26 种提示条件逐一让 agent 用不同测试技术/库（TDD、Formal methods 如 Lean4/ACL2/TLA+/SMT、Fuzzing、PBT、QuickCheck、各路 skill）对比正确率与成本。结论是\"没有哪种大幅超群\"，Default（不加提示）反而高于平均，agent 普遍不真正会用测试工具；TDD 表现差，大型 skill 不敌一个\"把你从默认行为往外扳\"的小定制 prompt。"
+      "highlight": "用 Zstd 实现评测，对 26 种提示条件逐一让 agent 用不同测试技术/库（TDD、Formal methods 如 Lean4/ACL2/TLA+/SMT、Fuzzing、PBT、QuickCheck、各路 skill）对比正确率与成本。结论是\"没有哪种大幅超群\"，Default（不加提示）反而高于平均，agent 普遍不真正会用测试工具；TDD 表现差，大型 skill 不敌一个\"把你从默认行为往外扳\"的小定制 prompt。",
+      "excerpt": "We previously noted that, while it's easier than ever to hit a particular quality bar by having coding agents use effective test techniques, software quality seems to be getting worse, indicating that whatever defaults developers are using may not work very well. Here, we test if simple instructions to agents to use particular techniques or libraries improve implementation correctness."
     },
     {
       "url": "https://vllm.ai/blog/2026-08-23-speculative-decoding-amd-gpus",
@@ -821,7 +840,8 @@
       "rough_confidence": "medium",
       "score_reason": "S3 到 GPU 一次拷贝，数据工程干货",
       "score": null,
-      "highlight": "QCon 演讲。Vortex 列式格式让数据从 S3 经网卡直达 GPU 一次拷贝，绕开 NVMe / CPU 解压这两处瓶颈；用轻量+级联编码可在压缩态上做计算，随机访问比 Parquet 快约 100 倍，S3→GPU 扫描快约 30 倍；layout 作为 pruning 的 I/O 逻辑层，zone-map 按行粒度裁剪，改 filter/数据混排无需重处理。"
+      "highlight": "QCon 演讲。Vortex 列式格式让数据从 S3 经网卡直达 GPU 一次拷贝，绕开 NVMe / CPU 解压这两处瓶颈；用轻量+级联编码可在压缩态上做计算，随机访问比 Parquet 快约 100 倍，S3→GPU 扫描快约 30 倍；layout 作为 pruning 的 I/O 逻辑层，zone-map 按行粒度裁剪，改 filter/数据混排无需重处理。",
+      "excerpt": "This is not backed by a regular MP4 file in some main disk, but this is actually a visualization of a file scan. We have a Vortex file, Vortex being a columnar file format."
     },
     {
       "url": "https://jyn.dev/simple-is-not-the-same-as-small/",
