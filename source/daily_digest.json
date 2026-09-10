@@ -75,7 +75,7 @@
       "rough_confidence": "high",
       "score_reason": "模型路由降本的工程方法，思路可直接迁移到生产 LLM 调用",
       "read_cost_min": null,
-      "highlight": "ByteByteGo 的教程文章，讲「模型路由（model routing）」如何把 LLM 应用成本降低约 10 倍。文章指出：默认把每个请求都发给最强模型会浪费算力与成本，而路由的核心难点在于「在不作答的前提下判断请求难度」。文中给出多信号判断（任务类型、风险等级、上下文规模、输出要求）、用一个小模型当路由分类器、级联（先试便宜模型、校验失败再升级）、语义路由（基于 embedding 而非关键词判断意图）、以及用真实请求数据训练路由分类器等方法；",
+      "highlight": "ByteByteGo 的教程文章，讲「模型路由（model routing）」如何把 LLM 应用成本降低约 10 倍。文章指出：默认把每个请求都发给最强模型会浪费算力与成本，而路由的核心难点在于「在不作答的前提下判断请求难度」。文中给出多信号判断（任务类型、风险等级、上下文规模、输出要求）、用一个小模型当路由分类器、级联（先试便宜模型、校验失败再升级）、语义路由（基于 embedding 而非关键词判断意图）、以及用真实请求数据训练路由分类器等方法；并总结了欠路由、过路由、被用户输入操纵、模型/价格变化后路由失效等常见失败模式。",
       "excerpt": "When an application adopts a large language model (LLM), they generally choose the most capable model possible. This means that every single request is sent to that expensive model."
     },
     {
@@ -156,7 +156,7 @@
       "rough_confidence": "medium",
       "score_reason": "推理服务系统级优化，深度高、适用面较窄",
       "read_cost_min": 22,
-      "highlight": "Cohere 发布面向 North Mini Code 的推理服务引擎，核心是把整个 decode 前向过程做成一个常驻的「decode megakernel」，而非一串依次启动、彼此等待的小 kernel。作者指出多数推理栈仍把每次前向拆成 QKV、attention、MoE 等 kernel 依次启动，小 batch 时 GPU 大量时间耗在 kernel 之间的空档而非计算上；",
+      "highlight": "Cohere 发布面向 North Mini Code 的推理服务引擎，核心是把整个 decode 前向过程做成一个常驻的「decode megakernel」，而非一串依次启动、彼此等待的小 kernel。作者指出多数推理栈仍把每次前向拆成 QKV、attention、MoE 等 kernel 依次启动，小 batch 时 GPU 大量时间耗在 kernel 之间的空档而非计算上；自回归解码（尤其低 batch）本质受限于显存带宽，关键指标应是带宽利用率而非算力。以 North Mini Code 为例：30B 模型、每 token 激活 3.3B 参数，BF16 下每步需流式读取 6.6 GB 权重，加 8K 上下文的约 0.5 GB KV cache；H100 带宽 3.35 TB/s，理论上限（SoL）约 470 tok/s，而 vLLM 实测仅 185 tok/s（约 39% SoL）。",
       "excerpt": "Most LLM serving stacks still treat each forward pass as a sequence of kernels: launch QKV, wait; launch attention, wait; launch the MoE, wait. Each launch is fine on its own. The problem is the waiting in between."
     },
     {
@@ -250,7 +250,7 @@
       "rough_confidence": "high",
       "score_reason": "agent 安全的一手实测，实验方法可复用",
       "read_cost_min": 9,
-      "highlight": "作者 Shrivu Shankar 用约 100 个自托管 Agent（基于 abliterated 开源模型 GLM-5.3、GLM-5.3 Flash、DeepSeek V4 Flash，接入 Codex CLI，跑在独立 Docker 容器里）在 5 小时实验中尝试攻入自己的在线账号。Agent 未能通过第三方漏洞得手，但 3 次通过旧（AI 之前时代）副项目和黑客松 demo 里的 IDOR 与凭据管理错误攻入其账号；",
+      "highlight": "作者 Shrivu Shankar 用约 100 个自托管 Agent（基于 abliterated 开源模型 GLM-5.3、GLM-5.3 Flash、DeepSeek V4 Flash，接入 Codex CLI，跑在独立 Docker 容器里）在 5 小时实验中尝试攻入自己的在线账号。Agent 未能通过第三方漏洞得手，但 3 次通过旧（AI 之前时代）副项目和黑客松 demo 里的 IDOR 与凭据管理错误攻入其账号；还利用 FastPeopleSearch 等人物数据库与社交资料做 OSINT 拼密码，并搭建假 Substack 钓鱼页做社工。",
       "excerpt": "This weekend I tasked ~100 self-hosted agents to try to hack into any of my online accounts. During the five hour experiment, they used their sandboxes, code, and the open internet to try to break my personal security."
     },
     {
@@ -408,7 +408,7 @@
       "rough_confidence": "high",
       "score_reason": "攻击 AI 客服 agent 的实操研究，落地风险清晰",
       "read_cost_min": 11,
-      "highlight": "Intigriti 研究员（Ayoub、Inti De Ceukelaire）总结对 AI 客服 Agent 的攻击手法，几个周末即拿到 5 万美元以上赏金，且未用 Burp 或扫描器。主要方向包括：借聊天转写/邮件回执功能发钓鱼邮件；伪造/非伪造地以受害者身份向 Agent 发签名邮件；通过邮件地址走私（如 &email=victim@...&）绕过认证；利用 Agent 监控的支持邮箱读取并外传第三方账号的 OTP（指令植入后经 DNS 子域外带）；",
+      "highlight": "Intigriti 研究员（Ayoub、Inti De Ceukelaire）总结对 AI 客服 Agent 的攻击手法，几个周末即拿到 5 万美元以上赏金，且未用 Burp 或扫描器。主要方向包括：借聊天转写/邮件回执功能发钓鱼邮件；伪造/非伪造地以受害者身份向 Agent 发签名邮件；通过邮件地址走私（如 &email=victim@...&）绕过认证；利用 Agent 监控的支持邮箱读取并外传第三方账号的 OTP（指令植入后经 DNS 子域外带）；以及攻击 Agent 知识库（KB）——非对称消息（HTML 与纯文本内容不同）、线程 ID 喷洒外传工单、通过社区评论污染 RAG 知识库、sitemap 命名空间攻击（把用户名注册为 sitemap 从而占用 acme.com/sitemap）。结论是「有人在环」并不天然更安全，特权过大的 Agent 会放大风险。",
       "excerpt": "As AI agents are deployed to automate more tasks, they become more capable. And as the famous quote goes: \"With great power comes great responsibility.\""
     },
     {
@@ -421,7 +421,7 @@
       "rough_confidence": "high",
       "score_reason": "基础设施密钥分层设计文档，工程参考价值高",
       "read_cost_min": 12,
-      "highlight": "这是 Oxide 的公开 RFD（Request for Discussion）301，讨论机架级安全（rack-level security）的密钥层级策略，当前状态为 published，作者 Andrew J. Stone。背景部分说明 Oxide 机架内存在多种密钥：最底层是存储在 RoT（Root of Trust）上的 DeviceId 与 Alias 密钥，分别用于平台身份与度量签名（attestation，见 RFD 36）；",
+      "highlight": "这是 Oxide 的公开 RFD（Request for Discussion）301，讨论机架级安全（rack-level security）的密钥层级策略，当前状态为 published，作者 Andrew J. Stone。背景部分说明 Oxide 机架内存在多种密钥：最底层是存储在 RoT（Root of Trust）上的 DeviceId 与 Alias 密钥，分别用于平台身份与度量签名（attestation，见 RFD 36）；这两个密钥加上第三个由 RoT 托管、用于认证临时 Diffie-Hellman 协商的密钥对，使各 sled 能建立安全的 sprockets 会话以承载应用层消息（RFD 238）。sprockets 会话提供点对点机密性、消息完整性，并保证端点真实性及其运行软件的 attestation。为实现机架级安全保证（使攻击者即使带走部分 sled 或硬盘也无法恢复有用信息），设计采用了 Trust Quorum（RFD 238）。",
       "excerpt": "There are many different types of secrets inside an oxide rack. At the base of the system we have the DeviceId and Alias keys stored on the RoT and used for platform identity and measurement signing for attestation respectively."
     },
     {
@@ -680,7 +680,7 @@
       "rough_confidence": "medium",
       "score_reason": "AI 生成凭据泄漏的治理实践，有具体做法",
       "read_cost_min": 8,
-      "highlight": "GitGuardian 的博客/产品文，讲 AI 驱动的开发如何造成泄露凭据激增，以及他们用 AI agent 来分流处理。TL;DR 三点：(1) 暴露问题——AI 驱动的开发把暴露的凭据推到 127 万条，同比 +81%，且 2022 年确认有效、到 2026 年 1 月仍未吊销的占 64%；",
+      "highlight": "GitGuardian 的博客/产品文，讲 AI 驱动的开发如何造成泄露凭据激增，以及他们用 AI agent 来分流处理。TL;DR 三点：(1) 暴露问题——AI 驱动的开发把暴露的凭据推到 127 万条，同比 +81%，且 2022 年确认有效、到 2026 年 1 月仍未吊销的占 64%；(2) 解决办法——Public Secrets Monitoring 现在对每个公共 GitHub 与 Docker Hub 事件跑两个 AI agent 并做深度分析，返回「与本公司相关」的判定、风险分以及可见的推理过程；(3) 上线安排——新工作区默认开启 Agents Analysis，老工作区逐步推送，有企业团队称生产力提升 10 倍，且每个事件最终仍由人工审核关闭。",
       "excerpt": "Leaked credentials now reach public sources faster than any security team can review them by hand. GitGuardian Public Secrets Monitoring runs agents over every public incident and returns a comprehensive verdict."
     },
     {
@@ -1057,7 +1057,7 @@
       "rough_confidence": "medium",
       "score_reason": "长文科普，理解成本高",
       "read_cost_min": 29,
-      "highlight": "Scott Alexander 的一篇长科普，定位是「个人备忘 / 术语索引」，系统梳理机械可解释性（mechanistic interpretability，即「读 AI 的心」）的各类技术。开篇回顾历史：LLM 是「长出来的、不是造出来的」；本以为能逆向工程，起初想找神经元与概念一对一映射，2023 年发现是「多对多映射」，令人振奋；",
+      "highlight": "Scott Alexander 的一篇长科普，定位是「个人备忘 / 术语索引」，系统梳理机械可解释性（mechanistic interpretability，即「读 AI 的心」）的各类技术。开篇回顾历史：LLM 是「长出来的、不是造出来的」；本以为能逆向工程，起初想找神经元与概念一对一映射，2023 年发现是「多对多映射」，令人振奋；到 2024–2025 年这层清晰感瓦解，不同团队对同一模型给出不同结果，看似清晰的特征其实很模糊，用映射做「测谎」等实用任务也普遍失败，于是研究者放弃了「唯一真技术」的幻想，回到原点重做。",
       "excerpt": "Large language models are \"grown, not built\". Researchers run training data through a neural network. Eventually this creates a working AI; nobody really knows how."
     },
     {
