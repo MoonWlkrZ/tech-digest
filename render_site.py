@@ -57,13 +57,16 @@ def main():
         m=re.search(r'(urn:li:activity:\d+)',u,re.I)
         return (u[:m.end()] if m else u).lower()
     rec_urls={_norm(r.get('url')) for r in recs}
+    # 全局去重集合:精读 > 阅读队列 > 其余候选 依次优先,同一 URL(归一化后相同)
+    # 在整个页面只出现一次——否则同一篇文章会同时以队列卡与网格卡两个身份出现。
+    seen_urls=set(rec_urls)
     def _dedupe(seq):
-        # 精读已覆盖的 URL 不再进队列;同 URL(含归一化后相同)只留第一条
-        seen=set(); out=[]
+        # 精读已覆盖的 URL 不再进队列;同 URL(含归一化后相同)全局只留第一条
+        out=[]
         for i in seq:
             k=_norm(i.get('url'))
-            if not k or k in seen or k in rec_urls: continue
-            seen.add(k); out.append(i)
+            if not k or k in seen_urls: continue
+            seen_urls.add(k); out.append(i)
         return out
     hl_items=sorted(_dedupe([i for i in items if i.get('highlight')]),key=_qkey)
     rest_all=sorted(_dedupe([i for i in items if not i.get('highlight')]),key=_qkey)
