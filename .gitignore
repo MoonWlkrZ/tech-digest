@@ -21,3 +21,7 @@ Thumbs.db
 
 # Keep the public site payload intentionally tracked:
 # digest.json
+
+# local scratch/backups
+*.bak
+*.bak-*
