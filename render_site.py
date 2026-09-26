@@ -36,7 +36,9 @@ def main():
     for n,r in enumerate(recs,1):
         rec_html.append(f'''<article class="recommendation"><div class="rank">{n:02d}</div><div><div class="source">{html.escape(r.get('verdict','推荐'))} · <span class="score">{stars(r.get('score'))}</span> · {html.escape(r.get('source',''))}</div><h3><a href="{html.escape(r['url'])}" target="_blank" rel="noopener noreferrer">{html.escape(r['title'])}</a></h3><p class="reason"><strong>为什么值得看：</strong>{html.escape(r.get('reason',''))}</p><details class="read-more"><summary>展开完整精读</summary><div class="full">{render_markdown(r.get('full_analysis_md') or r.get('full_analysis',''))}</div></details><div class="card-foot"><span>{html.escape(r.get('reading_cost',''))}</span><span>↗ 原文</span></div></div></article>''')
     def _qkey(x):
-        return (-(x.get('rough_score') or x.get('score') or 0), str(x.get('published','')))
+        if isinstance(x.get('queue_rank'), int):
+            return (0, x['queue_rank'])
+        return (1, -(x.get('rough_score') or x.get('score') or 0), str(x.get('published','')))
     # 疑似广告/赞助:优先信母代理粗筛时写下的 score_reason(比标题口径准),标题 CTA 只作兜底
     PROMO_REASON=('白皮书','电子书','报告落地页','资源下载页','下载页','落地页','playbook',
                   'promo','推广','广告','赞助','促销','软文','注册链接','无正文','无实质',
