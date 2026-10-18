@@ -1,0 +1,36 @@
+{
+  "edition": "2026-10-17",
+  "judgment": "今日判断：周末低量日，全天只有一篇新稿入池——RAG 分块策略的清单式整理。它的价值不在清单本身，而在最后那段读者补充：late chunking 的代价是整篇文档必须塞进 embedding 模型的上下文窗口，因此「不分块」也是一种有边界的选择。值得留意的方向是，分块的收益正在被 reranker 吃掉一部分，接下来更值得测的是「粗切分 + 好 reranker」与「精细语义切分」之间的成本差。",
+  "recommendations": [
+    {
+      "title": "EP229: 8 Chunking strategies for RAG-based agents",
+      "url": "https://blog.bytebytego.com/p/ep229-8-chunking-strategies-for-rag",
+      "source": "ByteByteGo",
+      "verdict": "值得一读：把 RAG 分块的八种做法摊开对照，末尾还带一条对 late chunking 的关键限制说明。",
+      "score": 4,
+      "reason": "多数团队的 RAG 检索质量瓶颈在切分而不是模型，这篇文章把从固定窗口到 late chunking 的八条路线按成本递增列清楚，适合当选型清单用。",
+      "key_points": [
+        "八种策略按复杂度递进：固定窗口（带小幅重叠）→ 递归（段落、行、词逐级回退）→ 按文档结构（标题、章节、HTML 标签）→ 语义（相邻句向量相似度下降处断开）。",
+        "LLM 分块把文本改写成一条一个独立命题，质量最高但大语料下成本高；agentic 分块让 agent 先判断文件类型（代码、合同、表格）再逐文件选方法。",
+        "late chunking 先让整篇文档过一遍 embedding 模型，再在常规断点内做 mean-pooling，这样每个 chunk 都保留了全文语境——代价是全文必须装进模型上下文（原论文用的 jina-embeddings-v2 是 8K token）。",
+        "超出上下文就只能先切宏观块，等于又回到选边界的问题，只是粒度更粗。"
+      ],
+      "reading_cost": "约 5 分钟",
+      "full_analysis": "一句话判断：这不是教程，而是一张 RAG 分块的选型对照表——八条路线按成本从低到高排开，真正的干货在最后那条对 late chunking 的限制补充。\n\n1. ByteByteGo 这一期的主线是「切分方式决定检索质量」。清单从最便宜的固定窗口开始：每 N 个 token 切一刀，带一点重叠，实现最简单，也最容易在句子中间切断语义。递归切分在此之上加了一层回退逻辑——先按段落切，段落还太大就退到行、词、字符，这是 LangChain 系工具里的默认做法，也是大多数生产系统的实际起点。\n\n2. 第三条是顺着文档自身的结构走：标题、章节、HTML 标签本来就是作者划好的语义边界，一个 markdown 文件按 section 切，天然一节一块。语义切分则更贵一步：把每个句子做 embedding，比较它与前一句的相似度，相似度掉下去的地方就是新主题的起点——它找的是真实的主题切换，而不是按长度猜。\n\n3. 再往上两种都是「让模型参与切分」。LLM 分块把文本改写成彼此独立的命题，一行一个想法，每行成一个 chunk，质量最高，但要对整个语料跑一遍 LLM，成本压不住。Agentic 分块换了个角度：让 agent 先读文档，判断它是代码、合同还是表格，再为这个文件挑方法，而不是全库一条规则。\n\n4. 整篇最值得记的是 late chunking 的参数约束。它先让整篇文档过 embedding 模型，再套用常规的断点做 mean-pooling，于是每个 chunk 的向量都带着全文语境。作者在文末引了一条读者的实测反馈：整篇文档必须装进 embedding 模型的上下文窗口，原论文用的 jina-embeddings-v2 是 8K token；超过这个长度就只能先切宏观块，等于又回到选边界的老问题，只是粒度粗了一档。\n\n5. 同一条反馈里还给了 late chunking 真正划算的场景：指代密集的文本。固定窗口切出来的「its revenue grew 3%」丢掉了 its 指的是哪家公司，而 late chunking 因为每个 token 都在全文视野下被编码，这个指代保住了。反馈最后提的问题更实用——有没有人测过 agentic 分块对「普通递归切分 + 好 reranker」，因为一个好 reranker 往往能把精细边界带来的收益补回大半。\n\n我的推荐：把它当选型清单而不是方案。默认从递归切分起步，配上 reranker 先量一遍基线；只有在指代密集、术语前后依赖强的语料上，late chunking 才值得付出「整篇必须进上下文」的代价，并且要提前想好超长文档的降级路径。这一期的另外三节（Google Translate 的编码器-解码器流程、Agent Skills 按需加载 SKILL.md、PostgreSQL 进程模型对 MySQL 线程模型）都是一屏带过的速览，适合顺手扫一眼。",
+      "full_analysis_md": "一句话判断：这不是教程，而是一张 RAG 分块的选型对照表——八条路线按成本从低到高排开，真正的干货在最后那条对 late chunking 的限制补充。\n\n1. ByteByteGo 这一期的主线是「切分方式决定检索质量」。清单从最便宜的固定窗口开始：每 N 个 token 切一刀，带一点重叠，实现最简单，也最容易在句子中间切断语义。递归切分在此之上加了一层回退逻辑——先按段落切，段落还太大就退到行、词、字符，这是 LangChain 系工具里的默认做法，也是大多数生产系统的实际起点。\n\n2. 第三条是顺着文档自身的结构走：标题、章节、HTML 标签本来就是作者划好的语义边界，一个 markdown 文件按 section 切，天然一节一块。语义切分则更贵一步：把每个句子做 embedding，比较它与前一句的相似度，相似度掉下去的地方就是新主题的起点——它找的是真实的主题切换，而不是按长度猜。\n\n3. 再往上两种都是「让模型参与切分」。LLM 分块把文本改写成彼此独立的命题，一行一个想法，每行成一个 chunk，质量最高，但要对整个语料跑一遍 LLM，成本压不住。Agentic 分块换了个角度：让 agent 先读文档，判断它是代码、合同还是表格，再为这个文件挑方法，而不是全库一条规则。\n\n4. 整篇最值得记的是 late chunking 的参数约束。它先让整篇文档过 embedding 模型，再套用常规的断点做 mean-pooling，于是每个 chunk 的向量都带着全文语境。作者在文末引了一条读者的实测反馈：整篇文档必须装进 embedding 模型的上下文窗口，原论文用的 jina-embeddings-v2 是 8K token；超过这个长度就只能先切宏观块，等于又回到选边界的老问题，只是粒度粗了一档。\n\n5. 同一条反馈里还给了 late chunking 真正划算的场景：指代密集的文本。固定窗口切出来的「its revenue grew 3%」丢掉了 its 指的是哪家公司，而 late chunking 因为每个 token 都在全文视野下被编码，这个指代保住了。反馈最后提的问题更实用——有没有人测过 agentic 分块对「普通递归切分 + 好 reranker」，因为一个好 reranker 往往能把精细边界带来的收益补回大半。\n\n我的推荐：把它当选型清单而不是方案。默认从递归切分起步，配上 reranker 先量一遍基线；只有在指代密集、术语前后依赖强的语料上，late chunking 才值得付出「整篇必须进上下文」的代价，并且要提前想好超长文档的降级路径。这一期的另外三节（Google Translate 的编码器-解码器流程、Agent Skills 按需加载 SKILL.md、PostgreSQL 进程模型对 MySQL 线程模型）都是一屏带过的速览，适合顺手扫一眼。"
+    }
+  ],
+  "items": [
+    {
+      "url": "https://blog.bytebytego.com/p/ep229-8-chunking-strategies-for-rag",
+      "title": "EP229: 8 Chunking strategies for RAG-based agents",
+      "source": "ByteByteGo",
+      "summary": "Which chunking strategy are you running in production?",
+      "published": "2026-10-17T15:30:51+00:00",
+      "rough_score": 5,
+      "rough_confidence": "medium",
+      "score_reason": "RAG 分块策略的工程实践整理，直接对应检索质量与上下文成本，适合细读。",
+      "read_cost_min": null
+    }
+  ]
+}
