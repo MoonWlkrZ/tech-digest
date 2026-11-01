@@ -1,0 +1,36 @@
+{
+  "edition": "2026-10-31",
+  "judgment": "今日判断：周六没有新的 TLDR 刊（周末休刊），Pragmatic Engineer 的上一期落在 30 小时窗口之外，整晚只收到 ByteByteGo 一期速览，是典型的低量日。主线在模型代际与概念口径：GPT-6 的异步工具调用、思考中可改指令开始进入科普叙述，说明这套交互正从实验室特性变成默认预期；值得留意的方向是 agent 运行时怎么为「跑到一半被改指令」补上取消与幂等语义，这一层目前还没有公开的一手设计文章。",
+  "recommendations": [
+    {
+      "title": "EP231: AI Terms You Need to Know",
+      "url": "https://blog.bytebytego.com/p/ep231-ai-terms-you-need-to-know",
+      "source": "ByteByteGo",
+      "verdict": "概念索引可用，深度有限",
+      "score": 3,
+      "reason": "六七个概念的图文速览，其中 GPT-2 到 GPT-6 的代际变化表把公开参数与能力边界排成了一条线，是这期唯一值得存档的部分。",
+      "key_points": [
+        "GPT-5 起内建推理、上下文 400K，ChatGPT 侧用 router 判断是否需要思考模式；GPT-6 上下文 1.05M，支持异步工具调用与思考中接收新指令。",
+        "术语表覆盖 Agentic AI、Large Reasoning Model、向量库、RAG 与 MCP，其中 MCP 的 client/server 分工写得比多数科普准确。",
+        "GPU 部分从 SM、warp scheduler、CUDA core、register file 一层层拆到全局显存，解释了为什么靠海量并行掩盖显存延迟。",
+        "整期没有实验数据，顶部赞助位与底部课程招生需要自行跳过，GPT-6 的能力描述只有一句话级别。"
+      ],
+      "reading_cost": "约 6 分钟",
+      "full_analysis": "**一句话判断**\n\n这是 ByteByteGo 第 231 期的系统设计周刊，主体是六七个概念配图速览；真正能带走的是 GPT-2 到 GPT-6 的代际变化表和 GPU 片内结构拆解，适合当索引存下来，不适合当深度读物。\n\n**1. 术语卡片**\n\nAgentic AI 被定义成一个闭环系统：理解目标、制定计划、调用工具和 API、评估结果并纠错，直到达成目标——重点在「整个系统的行为」，而不是模型本身。Large Reasoning Model 强调把问题拆成更小的子问题再做推理。向量库存的是代表语义与特征的数字列表，指向文本、音频、视频。RAG 的检索来源不限于向量库，也可以是 API、SQL 或混合检索，这一点常被简化掉。MCP 走的是标准接口：AI 应用内的 MCP client 与外部 MCP server 通信。定义都是入门口径，但 MCP 那段的 client/server 分工写得比多数科普准确。\n\n**2. 代际表**\n\n这期信息密度最高的部分。GPT-2（2019）：1.5B 参数，只做预训练加下一 token 预测，能力停在续写文本，不能回答问题。GPT-3（2020）：175B，同一套配方靠规模换来 in-context learning，给几个例子就能跟随，但同样只经过预训练。GPT-4（2023）：在预训练之上用 RLHF 微调，从补全模型变成能问答的助手，支持图像输入，上下文 32K。GPT-5（2025）：第一代内建推理，给定 prompt、工具和 effort 等级，先生成推理 token 再给答案，上下文涨到 400K，ChatGPT 侧用一个 router 判断哪些请求需要进思考模式。GPT-6（2026）：上下文 1.05M，支持异步工具调用，整体更安全，并且能在思考过程中接收新指令（mid-turn steering）。\n\n**3. 面试清单**\n\n把知识面切成传统 AI 与现代 AI 两栏：前者是神经网络占主导之前的 ML 基础，后者是 transformer、RAG、post-training 这些。提醒的重点不是背名词，而是能解释每个东西怎么工作、什么时候失效、代价与取舍在哪里。\n\n**4. GPU 结构**\n\n一颗 GPU 由多个 SM（流式多处理器）组成，SM 内部有 warp scheduler 决定下一组线程、几十个 CUDA core 并行执行、register file 以极低延迟存线程局部数据、load/store 单元在寄存器和内存之间搬数、L1 缓存留在 SM 上。SM 之间经片上互连，下面是所有 SM 共享的 L2；再往下是 memory controller 与 global memory。全局显存带宽极高但延迟远高于片上存储，所以 GPU 的设计哲学是用海量并行把延迟藏起来——一批线程等内存时，成千上万个其他线程继续执行。\n\n**5. 局限**\n\n整期没有实验数据，GPT-6 那一段只有一句话级别的能力描述；顶部是 Railway 的赞助位，底部是 AI Cost Optimization 课程的招生文案，读的时候要自己跳过。真正值得往下想的只有一处：文末读者留言指出，异步工具调用叠加 mid-turn steering 之后，agent harness 必须为进行中的调用补上取消与幂等语义，否则中途改指令会留下半执行的副作用。刊物本身没有展开这一点。\n\n**我的推荐**\n\n值得花 6 分钟把代际表和 GPU 结构图过一遍、存成索引，尤其适合需要向非 AI 背景同事解释这些词的场合，两张图的表达比文字定义省事。但如果你在做 agent 运行时，这期唯一有新增信息的是 GPT-6 的 mid-turn steering 与异步工具调用，而且只到「知道它存在」的程度——真正的设计约束（调用取消、幂等、部分失败回滚）还得自己推。",
+      "full_analysis_md": "**一句话判断**\n\n这是 ByteByteGo 第 231 期的系统设计周刊，主体是六七个概念配图速览；真正能带走的是 GPT-2 到 GPT-6 的代际变化表和 GPU 片内结构拆解，适合当索引存下来，不适合当深度读物。\n\n**1. 术语卡片**\n\nAgentic AI 被定义成一个闭环系统：理解目标、制定计划、调用工具和 API、评估结果并纠错，直到达成目标——重点在「整个系统的行为」，而不是模型本身。Large Reasoning Model 强调把问题拆成更小的子问题再做推理。向量库存的是代表语义与特征的数字列表，指向文本、音频、视频。RAG 的检索来源不限于向量库，也可以是 API、SQL 或混合检索，这一点常被简化掉。MCP 走的是标准接口：AI 应用内的 MCP client 与外部 MCP server 通信。定义都是入门口径，但 MCP 那段的 client/server 分工写得比多数科普准确。\n\n**2. 代际表**\n\n这期信息密度最高的部分。GPT-2（2019）：1.5B 参数，只做预训练加下一 token 预测，能力停在续写文本，不能回答问题。GPT-3（2020）：175B，同一套配方靠规模换来 in-context learning，给几个例子就能跟随，但同样只经过预训练。GPT-4（2023）：在预训练之上用 RLHF 微调，从补全模型变成能问答的助手，支持图像输入，上下文 32K。GPT-5（2025）：第一代内建推理，给定 prompt、工具和 effort 等级，先生成推理 token 再给答案，上下文涨到 400K，ChatGPT 侧用一个 router 判断哪些请求需要进思考模式。GPT-6（2026）：上下文 1.05M，支持异步工具调用，整体更安全，并且能在思考过程中接收新指令（mid-turn steering）。\n\n**3. 面试清单**\n\n把知识面切成传统 AI 与现代 AI 两栏：前者是神经网络占主导之前的 ML 基础，后者是 transformer、RAG、post-training 这些。提醒的重点不是背名词，而是能解释每个东西怎么工作、什么时候失效、代价与取舍在哪里。\n\n**4. GPU 结构**\n\n一颗 GPU 由多个 SM（流式多处理器）组成，SM 内部有 warp scheduler 决定下一组线程、几十个 CUDA core 并行执行、register file 以极低延迟存线程局部数据、load/store 单元在寄存器和内存之间搬数、L1 缓存留在 SM 上。SM 之间经片上互连，下面是所有 SM 共享的 L2；再往下是 memory controller 与 global memory。全局显存带宽极高但延迟远高于片上存储，所以 GPU 的设计哲学是用海量并行把延迟藏起来——一批线程等内存时，成千上万个其他线程继续执行。\n\n**5. 局限**\n\n整期没有实验数据，GPT-6 那一段只有一句话级别的能力描述；顶部是 Railway 的赞助位，底部是 AI Cost Optimization 课程的招生文案，读的时候要自己跳过。真正值得往下想的只有一处：文末读者留言指出，异步工具调用叠加 mid-turn steering 之后，agent harness 必须为进行中的调用补上取消与幂等语义，否则中途改指令会留下半执行的副作用。刊物本身没有展开这一点。\n\n**我的推荐**\n\n值得花 6 分钟把代际表和 GPU 结构图过一遍、存成索引，尤其适合需要向非 AI 背景同事解释这些词的场合，两张图的表达比文字定义省事。但如果你在做 agent 运行时，这期唯一有新增信息的是 GPT-6 的 mid-turn steering 与异步工具调用，而且只到「知道它存在」的程度——真正的设计约束（调用取消、幂等、部分失败回滚）还得自己推。"
+    }
+  ],
+  "items": [
+    {
+      "url": "https://blog.bytebytego.com/p/ep231-ai-terms-you-need-to-know",
+      "title": "EP231: AI Terms You Need to Know",
+      "source": "ByteByteGo",
+      "summary": "What else should be on the list?",
+      "published": "2026-10-31T15:31:08+00:00",
+      "rough_score": 3,
+      "rough_confidence": "medium",
+      "score_reason": "术语科普长图，覆盖 AI 主流概念的对照，适合作为概念索引而非一手工程细节。",
+      "read_cost_min": null
+    }
+  ]
+}
