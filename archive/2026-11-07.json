@@ -1,0 +1,36 @@
+{
+  "edition": "2026-11-07",
+  "judgment": "今天只有一期 ByteByteGo，但它把 agent 工程的两个真问题放在一起：编排控制权放在哪一层，以及成本从哪里省。值得留意的方向是编排层正在往 SDK 内部收敛——Claude Agent SDK 干脆不设独立编排层，让 agent 循环自己承担分发与重试，这对自建 runtime 的人是个明确的信号。",
+  "recommendations": [
+    {
+      "title": "EP232: 6 Frequently Used Orchestration Frameworks in an AI system",
+      "url": "https://blog.bytebytego.com/p/ep232-6-frequently-used-orchestration",
+      "source": "ByteByteGo",
+      "verdict": "值得一读：把 6 种 agent 编排控制模型压在一张对照表里，选型时能少走弯路。",
+      "score": 4,
+      "reason": "不是罗列 API，而是按「控制权在谁手里」切分六种框架：图、角色、检查点、LLM 自主委派、混合、以及干脆不要编排层。同一期还给了成本优化清单和 Claude Code 的请求链路，三块拼起来正好是自建 agent 系统的三个决策点。",
+      "key_points": [
+        "六种编排范式的差别在控制权归属：LangGraph 用图的节点与边表达状态迁移，CrewAI 用角色加 manager，Microsoft Agent Framework 用图并内置分支、检查点与人工介入暂停，OpenAI Agents SDK 让模型自己决定委派还是继续执行，Google ADK 由开发者定策略、root agent 拆分子任务，Claude Agent SDK 则没有独立编排层。",
+        "成本优化六招里，作者在答读者问时明确排序：prompt caching 与 model routing 投入产出最高，semantic cache 最需要小心——假命中会把上一个问题的答案自信地返回给新问题，且没人会发现。",
+        "Claude Code 的一次请求被拆成 8 步：上下文包装、agent 循环提议动作、权限系统校验、转成 tool call、在沙箱里真实执行、结果回灌循环、落状态并流式返回，整个系统就是这个循环反复直到模型不再请求工具。",
+        "检查点与人工暂停是区分「能上生产」和「只能做 demo」的关键能力：能中断、能恢复、能在关键动作前等人批准，才谈得上跑长任务。"
+      ],
+      "reading_cost": "约 4 分钟",
+      "full_analysis": "一句话判断：这是一期系统设计短文合集，但主线很清楚——agent 编排的难点不在调用模型，而在把任务分发、失败处理、共享记忆和上下文管理放在哪一层；作者的答案是把这四件事显式建模，而不是塞进 prompt 里祈祷。\n\n1. 编排要解决的问题被定义得很干净：跨 agent 的任务分配、失败后的处理、共享记忆、上下文管理。这四条决定了框架的形态，也解释了为什么六种框架看起来完全不像同一个东西——它们对「谁来控制流程」的回答不一样。\n\n2. 六种控制模型可以按控制权排在一条轴上。最确定的一端是 LangGraph：工作流写成节点，边决定状态迁移，流程是代码而不是模型的即兴发挥。CrewAI 换成组织隐喻，给每个 agent 一个角色与目标，按顺序执行或交给 manager agent 调度。Microsoft Agent Framework 同样是图，但把分支、检查点、人工介入暂停做成内建能力，明显面向组织级工作流。中间地带是 Google ADK：开发者定义运行策略，root agent 负责拆分与分发子任务，属于混合控制。偏向模型自主的一端是 OpenAI Agents SDK，运行时由 LLM 决定把控制权交给别的 agent 还是自己干完。最激进的是 Claude Agent SDK——没有单独的编排层，编排就住在 agent 内部：收集上下文、调用工具、评估结果、继续推进，直到没有待发起的调用为止。这条轴对选型的意义很直接：流程需要可审计、可恢复，就往图的这端走；任务边界模糊、需要边做边判断，就往模型自主的那端走。\n\n3. 成本那一节是同一套思路在钱上的投影：prompt caching 缓存系统提示与工具 schema 这类稳定前缀，让模型跳过重复计算；model routing 把简单查询交给小模型、难题交给前沿模型，因为生产流量里大多数请求其实很简单；batch API 把大批任务异步打包换取折扣；semantic cache 用 embedding 命中历史问答；trim context 截断对话历史，避免每次都重发全量上下文；最后是用蒸馏或量化把大模型压成小模型。作者在回答读者时给了更实用的排序：前两项最容易见效，semantic cache 要按真实流量调相似度阈值、把缓存 key 按租户和一切会改变正确答案的维度切分、并记录命中以便审计，否则一次假命中就会静默地给出错误答案。\n\n4. Claude Code 的请求链路值得单独看，因为它把「agent 到底是什么」讲成了 8 个可检查的步骤：界面把 prompt 连同仓库与文件上下文包装成请求交给 agent loop；loop 规划下一步并提议动作（例如改某文件的某几行）；权限系统按规则校验这个动作；通过后转成 tool call 派发给对应工具；工具在 shell、云或沙箱里作为真实系统调用执行；结果送回 agent loop；最后把这一轮持久化并把消息流式返回。整段没有魔法，就是循环直到模型不再要求工具。这也解释了为什么权限校验必须夹在提议与执行之间——那是唯一能拦住危险动作的位置。\n\n5. 三块内容其实是一个选型 checklist：先决定控制权放在图、角色、还是模型手里；再决定省钱的六招里哪几招适合当前流量结构；最后检查自己的 runtime 有没有把提议、校验、执行、结果回传这四步分开，尤其是权限校验这一层。短文没有给出性能数据，也没有踩坑细节，所以它适合当索引而不适合当结论。\n\n我的推荐：如果你正在选 agent 框架，先看第 2 节那条按控制权排开的轴，用它排除掉两类不合适的方案，再去看具体框架文档；如果你在压推理成本，直接跳到成本那六条并按作者的优先级动手，prompt caching 和 model routing 通常一两天就能上线；如果你在自建 coding agent，把第 4 节的 8 步抄下来当架构图，特别别把权限校验省掉。",
+      "full_analysis_md": "一句话判断：这是一期系统设计短文合集，但主线很清楚——agent 编排的难点不在调用模型，而在把任务分发、失败处理、共享记忆和上下文管理放在哪一层；作者的答案是把这四件事显式建模，而不是塞进 prompt 里祈祷。\n\n1. 编排要解决的问题被定义得很干净：跨 agent 的任务分配、失败后的处理、共享记忆、上下文管理。这四条决定了框架的形态，也解释了为什么六种框架看起来完全不像同一个东西——它们对「谁来控制流程」的回答不一样。\n\n2. 六种控制模型可以按控制权排在一条轴上。最确定的一端是 LangGraph：工作流写成节点，边决定状态迁移，流程是代码而不是模型的即兴发挥。CrewAI 换成组织隐喻，给每个 agent 一个角色与目标，按顺序执行或交给 manager agent 调度。Microsoft Agent Framework 同样是图，但把分支、检查点、人工介入暂停做成内建能力，明显面向组织级工作流。中间地带是 Google ADK：开发者定义运行策略，root agent 负责拆分与分发子任务，属于混合控制。偏向模型自主的一端是 OpenAI Agents SDK，运行时由 LLM 决定把控制权交给别的 agent 还是自己干完。最激进的是 Claude Agent SDK——没有单独的编排层，编排就住在 agent 内部：收集上下文、调用工具、评估结果、继续推进，直到没有待发起的调用为止。这条轴对选型的意义很直接：流程需要可审计、可恢复，就往图的这端走；任务边界模糊、需要边做边判断，就往模型自主的那端走。\n\n3. 成本那一节是同一套思路在钱上的投影：prompt caching 缓存系统提示与工具 schema 这类稳定前缀，让模型跳过重复计算；model routing 把简单查询交给小模型、难题交给前沿模型，因为生产流量里大多数请求其实很简单；batch API 把大批任务异步打包换取折扣；semantic cache 用 embedding 命中历史问答；trim context 截断对话历史，避免每次都重发全量上下文；最后是用蒸馏或量化把大模型压成小模型。作者在回答读者时给了更实用的排序：前两项最容易见效，semantic cache 要按真实流量调相似度阈值、把缓存 key 按租户和一切会改变正确答案的维度切分、并记录命中以便审计，否则一次假命中就会静默地给出错误答案。\n\n4. Claude Code 的请求链路值得单独看，因为它把「agent 到底是什么」讲成了 8 个可检查的步骤：界面把 prompt 连同仓库与文件上下文包装成请求交给 agent loop；loop 规划下一步并提议动作（例如改某文件的某几行）；权限系统按规则校验这个动作；通过后转成 tool call 派发给对应工具；工具在 shell、云或沙箱里作为真实系统调用执行；结果送回 agent loop；最后把这一轮持久化并把消息流式返回。整段没有魔法，就是循环直到模型不再要求工具。这也解释了为什么权限校验必须夹在提议与执行之间——那是唯一能拦住危险动作的位置。\n\n5. 三块内容其实是一个选型 checklist：先决定控制权放在图、角色、还是模型手里；再决定省钱的六招里哪几招适合当前流量结构；最后检查自己的 runtime 有没有把提议、校验、执行、结果回传这四步分开，尤其是权限校验这一层。短文没有给出性能数据，也没有踩坑细节，所以它适合当索引而不适合当结论。\n\n我的推荐：如果你正在选 agent 框架，先看第 2 节那条按控制权排开的轴，用它排除掉两类不合适的方案，再去看具体框架文档；如果你在压推理成本，直接跳到成本那六条并按作者的优先级动手，prompt caching 和 model routing 通常一两天就能上线；如果你在自建 coding agent，把第 4 节的 8 步抄下来当架构图，特别别把权限校验省掉。"
+    }
+  ],
+  "items": [
+    {
+      "url": "https://blog.bytebytego.com/p/ep232-6-frequently-used-orchestration",
+      "title": "EP232: 6 Frequently Used Orchestration Frameworks in an AI system",
+      "source": "ByteByteGo",
+      "summary": "Orchestration in an AI system manages tasks across agents, handles failures, shared memory and context.",
+      "published": "2026-11-07T16:30:58+00:00",
+      "rough_score": 4,
+      "rough_confidence": "high",
+      "score_reason": "ByteByteGo 系统设计长文：横向比较 6 个 AI agent 编排框架的故障处理、共享记忆与上下文管理，有工程取舍细节。",
+      "read_cost_min": null
+    }
+  ]
+}
